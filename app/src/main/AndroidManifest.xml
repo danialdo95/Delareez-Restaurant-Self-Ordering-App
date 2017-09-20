@@ -21,9 +21,9 @@
         </activity>
 
 
-        <activity android:name=".CheckoutOrder">
+        <activity android:name=".CheckoutOrder"/>
 
-        </activity>
+
 
 
 
