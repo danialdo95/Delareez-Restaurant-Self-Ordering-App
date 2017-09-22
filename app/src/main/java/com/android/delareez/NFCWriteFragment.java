@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.Listener.delareez.Listener;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -48,7 +50,7 @@ public class NFCWriteFragment extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (CheckoutOrder) context;
+        mListener = (Listener) context;
         mListener.onDialogDisplayed();
     }
 

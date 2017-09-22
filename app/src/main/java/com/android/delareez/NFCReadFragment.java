@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.Listener.delareez.Listener;
+
 import java.io.IOException;
 
 public class NFCReadFragment extends DialogFragment {
@@ -47,7 +49,7 @@ public class NFCReadFragment extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mListener = (CheckoutOrder)context;
+        mListener = (Listener) context;
         mListener.onDialogDisplayed();
     }
 

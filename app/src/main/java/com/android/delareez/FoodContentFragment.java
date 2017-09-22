@@ -40,8 +40,7 @@ public class FoodContentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.item_ordered, container,false);
 
-        mValueField = (EditText) myView.findViewById(R.id.valueField);
-        mAddButton = (Button) myView.findViewById(R.id.addBtn);
+
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
