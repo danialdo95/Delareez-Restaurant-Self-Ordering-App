@@ -42,26 +42,6 @@ public class FoodContentFragment extends Fragment {
 
 
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Name");
-
-
-/*
-        mSendData = (Button) myView.findViewById(R.id.sendData);
-        mSendData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                myRef.setValue("Danny");
-
-            }
-        });
-*/
-
-
-
         return myView;
 
 
