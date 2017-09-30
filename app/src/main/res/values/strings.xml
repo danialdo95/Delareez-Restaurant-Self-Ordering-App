@@ -58,7 +58,21 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="check">Checkout</string>
+    <string name="logout">Logout</string>
+    <string name="button">Checkout Order</string>
+    <string name="add_new_menu">Add New Menu</string>
+    <string name="menu_type_prompt">Type of Menu</string>
 
+
+    <string name="MenuName">Menu Name</string>
+    <string name="price">Price</string>
+    <string name="cancel_add_menu">Cancel Add Menu</string>
+    <string name="add_menu">Add Menu</string>
+    <string-array name="menu_arrays_entries">
+        <item>Food</item>
+        <item>Drink</item>
+    </string-array>
 
 
 

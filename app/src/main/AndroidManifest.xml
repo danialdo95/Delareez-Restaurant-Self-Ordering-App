@@ -19,7 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CheckoutOrder" />
+        <activity
+            android:name=".CheckoutOrder"
+            android:label="@string/check"
+            android:theme="@style/OtherPages"></activity>
+        <activity
+            android:name=".CreateMenu"
+            android:label="Add New Menu"
+            android:theme="@style/OtherPages"></activity>
     </application>
 
 </manifest>

@@ -52,61 +52,17 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:328074909729:android:137d21b5cd1df937",
+        "mobilesdk_app_id": "1:328074909729:android:d842af33038fad5c",
         "android_client_info": {
-          "package_name": "com.android.delareezeats"
+          "package_name": "info.androidhive.firebase"
         }
       },
       "oauth_client": [
         {
-          "client_id": "328074909729-pqloa1ivbcgv2uituinsj3fkj3uq9aqp.apps.googleusercontent.com",
+          "client_id": "328074909729-ab9a2ib2l4de4vpub332jdvimdg7153u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.android.delareezeats",
-            "certificate_hash": "c51a91cbc8edd2d1e17e18bb1982d5c42e681f57"
-          }
-        },
-        {
-          "client_id": "328074909729-l23ae3chs7rjv44lht00eaajfhvsue8m.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAo9qQJizQOtIDbO9zBN1Fe-tCSGQP8PKE"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "328074909729-l23ae3chs7rjv44lht00eaajfhvsue8m.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:328074909729:android:f3628ca4ba2d9d21",
-        "android_client_info": {
-          "package_name": "com.software.fire.viewpagerwithfirebasetutorial"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "328074909729-l7cp98skf0qe41na43t6u3o9oiikfkuv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.software.fire.viewpagerwithfirebasetutorial",
+            "package_name": "info.androidhive.firebase",
             "certificate_hash": "c51a91cbc8edd2d1e17e18bb1982d5c42e681f57"
           }
         },

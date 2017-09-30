@@ -1,5 +1,6 @@
 package com.android.delareez;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -92,6 +93,10 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        else if(id == R.id.log_out){
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -103,7 +108,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.Add_Menu) {
+
+            startActivity(new Intent(MainActivity.this, CreateMenu.class));
 
         } else if (id == R.id.nav_slideshow) {
 
