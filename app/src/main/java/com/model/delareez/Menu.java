@@ -1,9 +1,7 @@
 package com.model.delareez;
 
 import android.media.Image;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
+
 
 
 /**
@@ -14,13 +12,15 @@ public class Menu {
 
     private String menuID;
     private String menuName;
-    private Boolean menuPrice;
-    private Image menuImage;
+    private Double menuPrice;
+    private String menuType;
+    private String  menuImage;
 
-    public Menu(String menuID, String menuName, Boolean menuPrice, Image menuImage) {
+    public Menu(String menuID, String menuName, Double menuPrice, String menuType, String menuImage) {
         this.menuID = menuID;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
+        this.menuType = menuType;
         this.menuImage = menuImage;
     }
 
@@ -28,33 +28,39 @@ public class Menu {
         return menuID;
     }
 
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public Boolean getMenuPrice() {
-        return menuPrice;
-    }
-
-    public Image getMenuImage() {
-        return menuImage;
-    }
-
     public void setMenuID(String menuID) {
         this.menuID = menuID;
+    }
+
+    public String getMenuName() {
+        return menuName;
     }
 
     public void setMenuName(String menuName) {
         this.menuName = menuName;
     }
 
-    public void setMenuPrice(Boolean menuPrice) {
+    public Double getMenuPrice() {
+        return menuPrice;
+    }
+
+    public void setMenuPrice(Double menuPrice) {
         this.menuPrice = menuPrice;
     }
 
-    public void setMenuImage(Image menuImage) {
-        this.menuImage = menuImage;
+    public String getMenuType() {
+        return menuType;
     }
 
+    public void setMenuType(String menuType) {
+        this.menuType = menuType;
+    }
 
+    public String getMenuImage() {
+        return menuImage;
+    }
+
+    public void setMenuImage(String menuImage) {
+        this.menuImage = menuImage;
+    }
 }

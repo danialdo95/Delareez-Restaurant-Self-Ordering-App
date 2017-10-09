@@ -13,15 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.model.delareez.Menu;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 public class CreateMenu extends AppCompatActivity {
@@ -41,6 +46,7 @@ public class CreateMenu extends AppCompatActivity {
 
 
     private StorageReference mStorageRef;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class CreateMenu extends AppCompatActivity {
         setContentView(R.layout.activity_create_menu);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Menu");
 
 
         mMenuName =(EditText) findViewById(R.id.MenuName);
@@ -90,24 +97,48 @@ public class CreateMenu extends AppCompatActivity {
 
 
         String name = mMenuName.getText().toString();
-        String price = mMenuPrice.getText().toString();
+        String p = mMenuPrice.getText().toString();
+        Double price = Double.parseDouble(p);
         String type = mMenuType.getSelectedItem().toString();
 
 
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(price) &&
+
+
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(p) &&
                 !TextUtils.isEmpty(type) && mImageUri !=null){
             mProgress.setMessage("Uploading New Menu...");
             mProgress.show();
             StorageReference filepath = mStorageRef.child("Menu_Images").child(mImageUri.getLastPathSegment());
-
 
             filepath.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             @SuppressWarnings("VisibleForTests")Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+/*
+                            DatabaseReference newMenu = mDatabase.push();
+                            newMenu.child("menuName").setValue(name);
+                            newMenu.child("menuPrice").setValue(price);
+                            newMenu.child("menuType").setValue(type);
+                            newMenu.child("menuImageURL").setValue(downloadUrl.toString());
+*/
+                            //getting a unique id using push().getKey() method
+                            //it will create a unique id and we will use it as the Primary Key for our Artist
+                            String id = mDatabase.push().getKey();
+
+                            //creating an Artist Object
+                            Menu menu = new Menu(id, name, price, type, downloadUrl.toString());
+
+                            //Saving the Artist
+                            mDatabase.child(id).setValue(menu);
+
+                            //setting edittext to blank again
+
+
                             mProgress.dismiss();
+
 
                         }
 
