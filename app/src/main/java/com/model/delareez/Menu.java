@@ -16,6 +16,9 @@ public class Menu {
     private String menuType;
     private String  menuImage;
 
+    public Menu (){ }
+
+
     public Menu(String menuID, String menuName, Double menuPrice, String menuType, String menuImage) {
         this.menuID = menuID;
         this.menuName = menuName;

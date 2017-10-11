@@ -128,10 +128,10 @@ public class CreateMenu extends AppCompatActivity {
                             //it will create a unique id and we will use it as the Primary Key for our Artist
                             String id = mDatabase.push().getKey();
 
-                            //creating an Artist Object
+                            //creating an Menu Object
                             Menu menu = new Menu(id, name, price, type, downloadUrl.toString());
 
-                            //Saving the Artist
+                            //Saving the Menu-
                             mDatabase.child(id).setValue(menu);
 
                             //setting edittext to blank again
