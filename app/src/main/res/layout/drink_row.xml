@@ -23,7 +23,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/card_title"
+            android:id="@+id/drink_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_title_height"
             android:layout_alignBottom="@+id/drink_image"
@@ -52,13 +52,13 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/action_button"
+            android:id="@+id/order_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/drink_price"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="?attr/colorPrimary"
-            android:text="@string/action" />
+            android:text="@string/action"
+            android:textColor="?attr/colorPrimary" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

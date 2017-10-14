@@ -4,7 +4,7 @@ package com.android.delareez;
  * Created by User on 10/8/2017.
  */
 
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.model.delareez.Menu;
 
 
@@ -40,7 +41,8 @@ public class FoodContentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.item_ordered, container,false);
 
-        mFirebaseRef = FirebaseDatabase.getInstance().getReference().child("Menu");
+        mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+        Query FoodQuery = mFirebaseRef.child("Menu").orderByChild("menuType").equalTo("Food");
 
         mFoodList = (RecyclerView) myView.findViewById(R.id.food_list);
         manager = new LinearLayoutManager(this.getContext());
@@ -50,12 +52,12 @@ public class FoodContentFragment extends Fragment {
 
         //Initializes Recycler View and Layout Manager.
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Menu, ViewHolder>(Menu.class, R.layout.food_row, ViewHolder.class, mFirebaseRef) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Menu, ViewHolder>(Menu.class, R.layout.food_row, ViewHolder.class, FoodQuery) {
             @Override
             protected void populateViewHolder(ViewHolder viewHolder, Menu model, int position) {
 
                 viewHolder.menuName.setText(model.getMenuName());
-                viewHolder.menuPrice.setText(Double.toString(model.getMenuPrice()));
+                viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()) + "0");
             }
         };
 
@@ -76,8 +78,8 @@ public class FoodContentFragment extends Fragment {
         public ViewHolder(View itemView) {
             super(itemView);
             menuName = (TextView) itemView.findViewById(R.id.card_title);
-            menuPrice = (TextView) itemView.findViewById(R.id.card_price);
-            menuImage = (ImageView) itemView.findViewById(R.id.card_image);
+            menuPrice = (TextView) itemView.findViewById(R.id.drink_price);
+            menuImage = (ImageView) itemView.findViewById(R.id.drink_image);
 
 
         }
