@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "328074909729-ss7cbbe23vg5dikksrg8ig4cjm13hnbn.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.android.delareez",
-            "certificate_hash": "c51a91cbc8edd2d1e17e18bb1982d5c42e681f57"
-          }
-        },
-        {
           "client_id": "328074909729-l23ae3chs7rjv44lht00eaajfhvsue8m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "328074909729-l23ae3chs7rjv44lht00eaajfhvsue8m.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
@@ -59,14 +46,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "328074909729-ab9a2ib2l4de4vpub332jdvimdg7153u.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "info.androidhive.firebase",
-            "certificate_hash": "c51a91cbc8edd2d1e17e18bb1982d5c42e681f57"
-          }
-        },
-        {
           "client_id": "328074909729-l23ae3chs7rjv44lht00eaajfhvsue8m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -81,13 +60,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "328074909729-l23ae3chs7rjv44lht00eaajfhvsue8m.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

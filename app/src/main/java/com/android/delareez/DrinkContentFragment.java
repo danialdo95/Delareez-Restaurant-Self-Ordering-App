@@ -2,6 +2,8 @@ package com.android.delareez;
 
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +11,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.DA.delareez.MenuDA;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.model.delareez.Menu;
+import com.squareup.picasso.Picasso;
 
 /**
  * Provides UI for the view with Cards.
@@ -35,17 +41,26 @@ public class DrinkContentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View myView = inflater.inflate(R.layout.item_drink, container,false);
+        View myView = inflater.inflate(R.layout.item_drink, container, false);
 
 
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         Query DrinkQuery = mFirebaseRef.child("Menu").orderByChild("menuType").equalTo("Drink");
+        //SETUP RECYCLER
+       // mDrinkList = (RecyclerView) myView.findViewById(R.id.drink_list);
+        //DrinkList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        //INITIALIZE FIREBASE DB
+       // mFirebaseRef= FirebaseDatabase.getInstance().getReference();
+       // MenuDA helper = new MenuDA(mFirebaseRef);
 
-        mDrinkList = (RecyclerView) myView.findViewById(R.id.drink_list);
+        //ADAPTER
+       // DrinkAdapter adapter = new DrinkAdapter(this.getContext(), helper.retrieve());
+        //mDrinkList.setAdapter(adapter);
+
+       mDrinkList = (RecyclerView) myView.findViewById(R.id.drink_list);
         manager = new LinearLayoutManager(this.getContext());
         mDrinkList.setHasFixedSize(true);
-
 
 
         //Initializes Recycler View and Layout Manager.
@@ -55,7 +70,9 @@ public class DrinkContentFragment extends Fragment {
             protected void populateViewHolder(DrinkContentFragment.ViewHolder viewHolder, Menu model, int position) {
 
                 viewHolder.menuName.setText(model.getMenuName());
-                viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()) + "0");
+                viewHolder.menuPrice.setText("RM " + Double.toString(model.getMenuPrice()) + "0");
+                Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);
+
             }
         };
 
@@ -64,6 +81,7 @@ public class DrinkContentFragment extends Fragment {
 
         return myView;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -75,14 +93,18 @@ public class DrinkContentFragment extends Fragment {
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             menuName = (TextView) itemView.findViewById(R.id.drink_name);
             menuPrice = (TextView) itemView.findViewById(R.id.drink_price);
             menuImage = (ImageView) itemView.findViewById(R.id.drink_image);
 
 
+
         }
+
+
+
+
     }
 
-
 }
-

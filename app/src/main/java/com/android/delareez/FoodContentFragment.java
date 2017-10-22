@@ -5,6 +5,7 @@ package com.android.delareez;
  */
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.model.delareez.Menu;
-
-
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -56,8 +57,17 @@ public class FoodContentFragment extends Fragment {
             @Override
             protected void populateViewHolder(ViewHolder viewHolder, Menu model, int position) {
 
-                viewHolder.menuName.setText(model.getMenuName());
-                viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()) + "0");
+                viewHolder.menuName.setText(position + 1 + ". " + model.getMenuName());
+                viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()));
+                Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);
+                viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent NFC = new Intent(getActivity(),CheckoutOrder.class);
+                        startActivity(NFC);
+                    }
+                });
+
             }
         };
 
@@ -72,6 +82,8 @@ public class FoodContentFragment extends Fragment {
         public final TextView menuName;
         public final TextView menuPrice;
         public final ImageView menuImage;
+        public final Button updateButton;
+
 
 
 
@@ -80,9 +92,12 @@ public class FoodContentFragment extends Fragment {
             menuName = (TextView) itemView.findViewById(R.id.card_title);
             menuPrice = (TextView) itemView.findViewById(R.id.drink_price);
             menuImage = (ImageView) itemView.findViewById(R.id.drink_image);
-
+            updateButton = (Button) itemView.findViewById(R.id.action_button);
 
         }
+
+
+
     }
 
     
