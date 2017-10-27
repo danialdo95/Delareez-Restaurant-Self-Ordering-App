@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 
+import com.DA.delareez.MenuDA;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -24,9 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.model.delareez.Menu;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+
 
 
 public class CreateMenu extends AppCompatActivity {
@@ -42,6 +41,7 @@ public class CreateMenu extends AppCompatActivity {
 
     private Button mAddMenu;
     private Button mCancelMenu;
+    MenuDA Helper;
 
 
 
@@ -54,8 +54,8 @@ public class CreateMenu extends AppCompatActivity {
         setContentView(R.layout.activity_create_menu);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Menu");
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Helper=new MenuDA(mDatabase);
 
         mMenuName =(EditText) findViewById(R.id.MenuName);
         mMenuPrice = (EditText) findViewById(R.id.price);
@@ -117,13 +117,7 @@ public class CreateMenu extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             @SuppressWarnings("VisibleForTests")Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-/*
-                            DatabaseReference newMenu = mDatabase.push();
-                            newMenu.child("menuName").setValue(name);
-                            newMenu.child("menuPrice").setValue(price);
-                            newMenu.child("menuType").setValue(type);
-                            newMenu.child("menuImageURL").setValue(downloadUrl.toString());
-*/
+
                             //getting a unique id using push().getKey() method
                             //it will create a unique id and we will use it as the Primary Key for our Artist
                             String id = mDatabase.push().getKey();
@@ -132,13 +126,14 @@ public class CreateMenu extends AppCompatActivity {
                             Menu menu = new Menu(id, name, price, type, downloadUrl.toString());
 
                             //Saving the Menu-
-                            mDatabase.child(id).setValue(menu);
 
+                            //mDatabase.child(id).setValue(menu);
+                            Helper.CreateMenu(menu);
                             //setting edittext to blank again
 
 
                             mProgress.dismiss();
-
+                            finish();
 
                         }
 

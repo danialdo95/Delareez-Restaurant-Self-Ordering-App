@@ -57,8 +57,8 @@ public class FoodContentFragment extends Fragment {
             @Override
             protected void populateViewHolder(ViewHolder viewHolder, Menu model, int position) {
 
-                viewHolder.menuName.setText(position + 1 + ". " + model.getMenuName());
-                viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()));
+                viewHolder.menuName.setText(model.getMenuName());
+                viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()) + "0");
                 Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);
                 viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override

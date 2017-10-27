@@ -15,7 +15,8 @@
         android:id="@+id/et_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_message"/>
+        android:hint="@string/hint_message"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/btn_write"

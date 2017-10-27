@@ -25,6 +25,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private int[] tabIcons = {
+            R.mipmap.ic_restaurant_menu_white_24dp,
+            R.mipmap.ic_local_drink_white_24dp,
+            R.mipmap.ic_shopping_cart_white_24dp};
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,16 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+        tabs.getTabAt(0).setIcon(tabIcons[0]);
+        tabs.getTabAt(1).setIcon(tabIcons[1]);
+        tabs.getTabAt(2).setIcon(tabIcons[2]);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -115,7 +124,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Intent NFC = new Intent(MainActivity.this,CheckoutOrder.class);
+            startActivity(NFC);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -126,14 +136,22 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new FoodContentFragment(), "Foods");
+        adapter.addFragment(new FoodContentFragment(),"Foods" );
         adapter.addFragment(new DrinkContentFragment(), "Drinks");
         adapter.addFragment(new OrderContentFragment(), "Orders");
         viewPager.setAdapter(adapter);
+
+
     }
+
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

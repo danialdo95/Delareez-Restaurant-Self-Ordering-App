@@ -33,7 +33,7 @@ public class MenuDA {
 
 
     //WRITE IF NOT NULL
-    public Boolean save(Menu menu)
+    public Boolean CreateMenu(Menu menu)
     {
         if(menu==null)
         {

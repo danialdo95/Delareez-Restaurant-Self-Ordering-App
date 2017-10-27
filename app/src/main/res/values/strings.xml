@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Delareez</string>
-    <string name="action">Order</string>
+    <string name="action">Update Food</string>
     <string name="drink">Drink</string>
     <string name="item_title">Item</string>
     <string name="item_desc">Price</string>
@@ -58,7 +58,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="check">Checkout</string>
+    <string name="check">Configure NFC Tag</string>
     <string name="logout">Logout</string>
     <string name="button">Checkout Order</string>
     <string name="add_new_menu">Add New Menu</string>
@@ -70,6 +70,7 @@
     <string name="cancel_add_menu">Cancel Add Menu</string>
     <string name="add_menu">Add Menu</string>
     <string name="menu_image">Menu Image</string>
+
     <string-array name="menu_arrays_entries">
         <item>Food</item>
         <item>Drink</item>
