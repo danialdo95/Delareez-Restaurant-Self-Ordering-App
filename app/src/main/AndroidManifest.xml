@@ -28,6 +28,8 @@
             android:name=".CreateMenu"
             android:label="Add New Menu"
             android:theme="@style/OtherPages"></activity>
+
+
     </application>
 
 </manifest>

@@ -54,7 +54,31 @@ public class MenuDA {
 
         return saved;
     }
-
+/*
+    public Boolean update(int position,String newName)
+    {
+        try {
+            menus.remove(position);
+            menus.add(position,newName);
+            return true;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public Boolean delete(int position)
+    {
+        try {
+            menus.remove(position);
+            return true;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+*/
     //IMPLEMENT FETCH DATA AND FILL ARRAYLIST
     private void fetchData(DataSnapshot dataSnapshot)
     {

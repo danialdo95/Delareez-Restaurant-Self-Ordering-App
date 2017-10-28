@@ -58,7 +58,7 @@ public class CreateMenu extends AppCompatActivity {
         Helper=new MenuDA(mDatabase);
 
         mMenuName =(EditText) findViewById(R.id.MenuName);
-        mMenuPrice = (EditText) findViewById(R.id.price);
+        mMenuPrice = (EditText) findViewById(R.id.Price);
         mMenuType = (Spinner) findViewById(R.id.spinner3);
         mSelectImage =  (ImageButton) findViewById(R.id.imageButtonMenu);
         mAddMenu = (Button) findViewById(R.id.AddMenu);

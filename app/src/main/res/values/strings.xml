@@ -67,9 +67,12 @@
 
     <string name="MenuName">Menu Name</string>
     <string name="price">Price</string>
+    <string name="menu_image">Menu Image</string>
     <string name="cancel_add_menu">Cancel Add Menu</string>
     <string name="add_menu">Add Menu</string>
-    <string name="menu_image">Menu Image</string>
+    <string name="todo">TODO</string>
+    <string name="menuprice">Menu Price</string>
+    <string name="menu_name">Menu Name</string>
 
     <string-array name="menu_arrays_entries">
         <item>Food</item>
