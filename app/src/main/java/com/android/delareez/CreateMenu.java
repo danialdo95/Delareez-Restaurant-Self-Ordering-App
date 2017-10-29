@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import com.DA.delareez.MenuDA;
@@ -98,8 +99,19 @@ public class CreateMenu extends AppCompatActivity {
 
         String name = mMenuName.getText().toString();
         String p = mMenuPrice.getText().toString();
-        Double price = Double.parseDouble(p);
         String type = mMenuType.getSelectedItem().toString();
+
+
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(getApplicationContext(), "Please enter the menu name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+       if (TextUtils.isEmpty(p)) {
+            Toast.makeText(getApplicationContext(), "Please Enter the menu price!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
 
 
@@ -117,7 +129,7 @@ public class CreateMenu extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             @SuppressWarnings("VisibleForTests")Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-
+                            Double price = Double.parseDouble(p);
                             //getting a unique id using push().getKey() method
                             //it will create a unique id and we will use it as the Primary Key for our Artist
                             String id = mDatabase.push().getKey();
@@ -141,8 +153,7 @@ public class CreateMenu extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                            // ...
+                            Toast.makeText(getApplicationContext(), "Failed to upload menu", Toast.LENGTH_SHORT).show();
                         }
                     });
 

@@ -2,8 +2,7 @@ package com.android.delareez;
 
 
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.DA.delareez.MenuDA;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,19 +45,9 @@ public class DrinkContentFragment extends Fragment {
 
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         Query DrinkQuery = mFirebaseRef.child("Menu").orderByChild("menuType").equalTo("Drink");
-        //SETUP RECYCLER
-       // mDrinkList = (RecyclerView) myView.findViewById(R.id.drink_list);
-        //DrinkList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        //INITIALIZE FIREBASE DB
-       // mFirebaseRef= FirebaseDatabase.getInstance().getReference();
-       // MenuDA helper = new MenuDA(mFirebaseRef);
 
-        //ADAPTER
-       // DrinkAdapter adapter = new DrinkAdapter(this.getContext(), helper.retrieve());
-        //mDrinkList.setAdapter(adapter);
-
-       mDrinkList = (RecyclerView) myView.findViewById(R.id.drink_list);
+        mDrinkList = (RecyclerView) myView.findViewById(R.id.drink_list);
         manager = new LinearLayoutManager(this.getContext());
         mDrinkList.setHasFixedSize(true);
 

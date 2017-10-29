@@ -74,11 +74,11 @@
     <string name="menuprice">Menu Price</string>
     <string name="menu_name">Menu Name</string>
 
+
     <string-array name="menu_arrays_entries">
         <item>Food</item>
         <item>Drink</item>
     </string-array>
-
 
 
 </resources>
