@@ -90,6 +90,13 @@ public class CreateMenu extends AppCompatActivity {
 
         });
 
+        mCancelMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -109,6 +116,11 @@ public class CreateMenu extends AppCompatActivity {
 
        if (TextUtils.isEmpty(p)) {
             Toast.makeText(getApplicationContext(), "Please Enter the menu price!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (mImageUri == null) {
+            Toast.makeText(getApplicationContext(), "Please Enter the menu image!", Toast.LENGTH_SHORT).show();
             return;
         }
 

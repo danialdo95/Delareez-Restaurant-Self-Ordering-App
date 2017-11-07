@@ -24,6 +24,17 @@
             android:cropToPadding="false"
             android:src="@mipmap/ic_launcher_round" android:contentDescription="@string/todo" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/de_lareez_restaurant"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:textColor="@color/ic_launcher_background"
+            android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
+            android:textStyle="italic" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -67,10 +67,11 @@ public class MenuDA {
             return false;
         }
     }
-    public Boolean delete(int position)
+ */
+    public Boolean deleteMenu(String Key)
     {
         try {
-            menus.remove(position);
+            db.child("Menu").child(Key).removeValue();
             return true;
         }catch (Exception e)
         {
@@ -78,7 +79,7 @@ public class MenuDA {
             return false;
         }
     }
-*/
+
     //IMPLEMENT FETCH DATA AND FILL ARRAYLIST
     private void fetchData(DataSnapshot dataSnapshot)
     {

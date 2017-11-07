@@ -16,13 +16,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +52,18 @@ public class MainActivity extends AppCompatActivity
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
+        //mDatabase = FirebaseDatabase.getInstance().getReference("Customer").child();
+
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
@@ -79,8 +89,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +99,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -99,6 +108,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        if (user != null){
+            View headerView = navigationView.getHeaderView(0);
+            TextView welcome = (TextView) headerView.findViewById(R.id.textView);
+            String ID = user.getEmail();
+            welcome.setText(ID);
+        }
+
+
 
 
     }
@@ -114,7 +134,12 @@ public class MainActivity extends AppCompatActivity
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        for (int i = 0; i < navigationView.getMenu().size(); i++){
+            navigationView.getMenu().getItem(i).setChecked(false);
+        }
     }
+
 
     @Override
     public void onStop() {
