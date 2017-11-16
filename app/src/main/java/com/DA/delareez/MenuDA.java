@@ -33,7 +33,7 @@ public class MenuDA {
 
 
     //WRITE IF NOT NULL
-    public Boolean CreateMenu(Menu menu)
+    public Boolean CreateMenu(Menu menu, String id)
     {
         if(menu==null)
         {
@@ -42,7 +42,7 @@ public class MenuDA {
         {
             try
             {
-                db.child("Menu").push().setValue(menu);
+                db.child("Menu").child(id).setValue(menu);
                 saved=true;
 
             }catch (DatabaseException e)

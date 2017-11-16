@@ -20,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".CheckoutOrder"
             android:label="@string/check"
@@ -29,13 +28,14 @@
             android:name=".CreateMenu"
             android:label="Add New Menu"
             android:theme="@style/OtherPages" />
-
         <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".ResetPasswordActivity" />
 
-        <activity android:name=".SignupActivity"></activity>
-
-        <activity android:name=".ResetPasswordActivity"></activity>
-
+        <activity android:name=".MenuDetail"
+            android:label="Menu Detail"
+            android:theme="@style/OtherPages"/>
+        
     </application>
 
 </manifest>

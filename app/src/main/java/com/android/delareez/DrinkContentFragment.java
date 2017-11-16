@@ -63,6 +63,7 @@ public class DrinkContentFragment extends Fragment {
 
         //Initializes Recycler View and Layout Manager.
 
+
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Menu, DrinkContentFragment.ViewHolder>(Menu.class, R.layout.drink_row, DrinkContentFragment.ViewHolder.class, DrinkQuery) {
             @Override
             protected void populateViewHolder(DrinkContentFragment.ViewHolder viewHolder, Menu model, int position) {
@@ -92,7 +93,7 @@ public class DrinkContentFragment extends Fragment {
                         alertDialog.setMessage("Are you sure you want delete this?");
 
                         // Setting Icon to Dialog
-                        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                        alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
 
                         // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
@@ -128,6 +129,8 @@ public class DrinkContentFragment extends Fragment {
 
         return myView;
     }
+
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

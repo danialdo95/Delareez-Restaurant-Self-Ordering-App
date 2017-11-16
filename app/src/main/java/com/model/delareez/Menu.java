@@ -11,17 +11,19 @@ public class Menu {
     private String menuName;
     private Double menuPrice;
     private String menuType;
-    private String  menuImage;
+    private String menuImage;
+    private String menuStatus;
 
     public Menu (){ }
 
 
-    public Menu(String menuID, String menuName, Double menuPrice, String menuType, String menuImage) {
+    public Menu(String menuID, String menuName, Double menuPrice, String menuType, String menuImage, String menuStatus) {
         this.menuID = menuID;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
         this.menuType = menuType;
         this.menuImage = menuImage;
+        this.menuStatus = menuStatus;
     }
 
     public String getMenuID() {
@@ -63,4 +65,13 @@ public class Menu {
     public void setMenuImage(String menuImage) {
         this.menuImage = menuImage;
     }
+
+    public String getMenuStatus() {
+        return menuStatus;
+    }
+
+    public void setMenuStatus(String menuStatus) {
+        this.menuStatus = menuStatus;
+    }
+
 }

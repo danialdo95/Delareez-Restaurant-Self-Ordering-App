@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.delareez.CreateMenu">
+    tools:context="com.android.delareez.MenuDetail"
+    tools:layout_editor_absoluteY="81dp">
 
     <ImageButton
         android:id="@+id/imageButtonMenu"
@@ -64,13 +65,12 @@
         android:id="@+id/spinner3"
         android:layout_width="0dp"
         android:layout_height="44dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:entries="@array/menu_arrays_entries"
         android:prompt="@string/menu_type_prompt"
         android:spinnerMode="dialog"
-        app:layout_constraintBottom_toTopOf="@+id/UpdateMenu"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -83,24 +83,24 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/add_menu"
-        app:layout_constraintBottom_toTopOf="@+id/CancelMenu"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/CancelMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/cancel_add_menu"
+        android:text="@string/update_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:entries="@array/menu_status"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/UpdateMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

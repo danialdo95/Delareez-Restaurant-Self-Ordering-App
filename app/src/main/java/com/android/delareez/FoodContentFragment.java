@@ -5,9 +5,10 @@ package com.android.delareez;
  */
 
 
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -22,15 +23,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.DA.delareez.MenuDA;
+import com.model.delareez.Menu;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.model.delareez.Menu;
 import com.squareup.picasso.Picasso;
 
 
@@ -48,14 +48,20 @@ public class FoodContentFragment extends Fragment {
             MenuDA Helper;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.item_ordered, container,false);
+
+
         progressBar = (ProgressBar) myView.findViewById(R.id.LoadingFood);
+
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         Query FoodQuery = mFirebaseRef.child("Menu").orderByChild("menuType").equalTo("Food");
         Helper=new MenuDA(mFirebaseRef);
+
+
         mFoodList = (RecyclerView) myView.findViewById(R.id.food_list);
         manager = new LinearLayoutManager(this.getContext());
         mFoodList.setHasFixedSize(true);
@@ -63,19 +69,28 @@ public class FoodContentFragment extends Fragment {
 
 
         //Initializes Recycler View and Layout Manager.
-
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Menu, ViewHolder>(Menu.class, R.layout.food_row, ViewHolder.class, FoodQuery) {
             @Override
             protected void populateViewHolder(ViewHolder viewHolder, Menu model, int position) {
 
+                final String post_key = getRef(position).getKey();
                 viewHolder.menuName.setText(model.getMenuName());
                 viewHolder.menuPrice.setText("RM " +Double.toString(model.getMenuPrice()) + "0");
+                viewHolder.menuStatus.setText(model.getMenuStatus());
+                if (model.getMenuStatus().equals("Available")){
+                 viewHolder.menuStatus.setTextColor(Color.GREEN);
+                }
+                else if (model.getMenuStatus().equals("Out Of Order")){
+                    viewHolder.menuStatus.setTextColor(Color.RED);
+                }
                 Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);
                 viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent NFC = new Intent(getActivity(),CheckoutOrder.class);
-                        startActivity(NFC);
+                        Intent updateFood = new Intent(getActivity(),MenuDetail.class);
+                        updateFood.putExtra("FoodID", post_key);
+
+                        startActivity(updateFood);
                     }
                 });
 
@@ -94,13 +109,13 @@ public class FoodContentFragment extends Fragment {
                         alertDialog.setMessage("Are you sure you want delete this?");
 
                         // Setting Icon to Dialog
-                        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                        alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
 
                         // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int which) {
 
-                                Helper.deleteMenu(getRef(position).getKey());
+                                Helper.deleteMenu(post_key);
 
                                 // Write your code here to invoke YES event
                                 Snackbar.make(view, model.getMenuName() + " is deleted" , Snackbar.LENGTH_LONG)
@@ -135,6 +150,7 @@ public class FoodContentFragment extends Fragment {
 
         public final TextView menuName;
         public final TextView menuPrice;
+        public final TextView menuStatus;
         public final ImageView menuImage;
         public final Button updateButton;
         public final ImageButton deleteButton;
@@ -146,6 +162,7 @@ public class FoodContentFragment extends Fragment {
             super(itemView);
             menuName = (TextView) itemView.findViewById(R.id.card_title);
             menuPrice = (TextView) itemView.findViewById(R.id.drink_price);
+            menuStatus = (TextView) itemView.findViewById(R.id.Status);
             menuImage = (ImageView) itemView.findViewById(R.id.drink_image);
             updateButton = (Button) itemView.findViewById(R.id.action_button);
             deleteButton = (ImageButton) itemView.findViewById(R.id.imageButton2);

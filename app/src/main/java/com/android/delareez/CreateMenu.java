@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,6 +55,11 @@ public class CreateMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_menu);
 
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Helper=new MenuDA(mDatabase);
@@ -62,7 +68,7 @@ public class CreateMenu extends AppCompatActivity {
         mMenuPrice = (EditText) findViewById(R.id.Price);
         mMenuType = (Spinner) findViewById(R.id.spinner3);
         mSelectImage =  (ImageButton) findViewById(R.id.imageButtonMenu);
-        mAddMenu = (Button) findViewById(R.id.AddMenu);
+        mAddMenu = (Button) findViewById(R.id.UpdateMenu);
         mCancelMenu = (Button) findViewById(R.id.CancelMenu);
 
         mProgress = new ProgressDialog(this);
@@ -93,7 +99,10 @@ public class CreateMenu extends AppCompatActivity {
         mCancelMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+               mMenuName.setText("");
+               mMenuPrice.setText("");
+               mImageUri = null;
+               mSelectImage.setImageResource(R.mipmap.ic_add_a_photo_black_24dp);
             }
         });
 
@@ -147,12 +156,12 @@ public class CreateMenu extends AppCompatActivity {
                             String id = mDatabase.push().getKey();
 
                             //creating an Menu Object
-                            Menu menu = new Menu(id, name, price, type, downloadUrl.toString());
+                            Menu menu = new Menu(id, name, price, type, downloadUrl.toString(), "Available");
 
                             //Saving the Menu-
 
                             //mDatabase.child(id).setValue(menu);
-                            Helper.CreateMenu(menu);
+                            Helper.CreateMenu(menu, id);
                             //setting edittext to blank again
 
 
@@ -184,6 +193,12 @@ public class CreateMenu extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return  super.onOptionsItemSelected(item);
+    }
 
 
 }
