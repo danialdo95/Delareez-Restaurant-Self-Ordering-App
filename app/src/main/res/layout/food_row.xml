@@ -67,7 +67,7 @@
             android:layout_alignEnd="@+id/drink_price"
             android:layout_below="@+id/drink_price"
             android:background="@null"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            app:srcCompat="@mipmap/ic_delete_black_24dp" />
 
         <TextView
             android:id="@+id/Status"

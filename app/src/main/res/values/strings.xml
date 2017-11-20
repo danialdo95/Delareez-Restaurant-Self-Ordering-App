@@ -87,6 +87,7 @@
         <item>Available</item>
         <item>Out Of Order</item>
     </string-array>
+    <string name="title_activity_order">Ordering</string>
 
 </resources>
 

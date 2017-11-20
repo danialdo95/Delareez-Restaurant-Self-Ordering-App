@@ -31,11 +31,15 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".ResetPasswordActivity" />
-
-        <activity android:name=".MenuDetail"
+        <activity android:name=".CustomerActivity" />
+        <activity
+            android:name=".MenuDetail"
             android:label="Menu Detail"
-            android:theme="@style/OtherPages"/>
-        
+            android:theme="@style/OtherPages" />
+        <activity
+            android:name=".OrderActivity"
+            android:label="@string/title_activity_order"
+            android:theme="@style/OtherPages"></activity>
     </application>
 
 </manifest>

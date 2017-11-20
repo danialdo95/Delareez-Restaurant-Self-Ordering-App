@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class CustomerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private int[] tabIcons = {
@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -69,22 +68,21 @@ public class MainActivity extends AppCompatActivity
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    startActivity(new Intent(CustomerActivity.this, LoginActivity.class));
                     finish();
                 }
-                else {
+                else{
                     String id = user.getUid();
-                    mDatabase.child("Customer").child(id).addValueEventListener(new ValueEventListener() {
+                    mDatabase.child("Staff").child(id).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists() ){
-
-                                Intent intent = new Intent(MainActivity.this, CustomerActivity.class);
+                                Intent intent = new Intent(CustomerActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
                             else{
-                                Toast.makeText(getApplicationContext(), "Hello Staff", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Hello Customer", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -93,11 +91,7 @@ public class MainActivity extends AppCompatActivity
 
                         }
                     });
-
-
-
                 }
-
             }
         };
 
@@ -127,8 +121,6 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
-        fab.setVisibility(View.GONE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -228,12 +220,12 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.Add_Menu) {
 
-            startActivity(new Intent(MainActivity.this, CreateMenu.class));
+            startActivity(new Intent(CustomerActivity.this, CreateMenu.class));
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            Intent NFC = new Intent(MainActivity.this,CheckoutOrder.class);
+            Intent NFC = new Intent(CustomerActivity.this,CheckoutOrder.class);
             startActivity(NFC);
         } else if (id == R.id.nav_share) {
 

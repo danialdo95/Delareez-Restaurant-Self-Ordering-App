@@ -5,6 +5,7 @@ package com.android.delareez;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,8 @@ public class DrinkContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.item_drink, container, false);
+
+
         progressBar = (ProgressBar) myView.findViewById(R.id.LoadingDrink);
 
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
@@ -68,13 +71,25 @@ public class DrinkContentFragment extends Fragment {
             @Override
             protected void populateViewHolder(DrinkContentFragment.ViewHolder viewHolder, Menu model, int position) {
 
+                final String post_key = getRef(position).getKey();
                 viewHolder.menuName.setText(model.getMenuName());
                 viewHolder.menuPrice.setText("RM " + Double.toString(model.getMenuPrice()) + "0");
-                Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);   viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
+                viewHolder.menuStatus.setText(model.getMenuStatus());
+                if (model.getMenuStatus().equals("Available")){
+                    viewHolder.menuStatus.setTextColor(Color.GREEN);
+                }
+                else if (model.getMenuStatus().equals("Out Of Order")){
+                    viewHolder.menuStatus.setTextColor(Color.RED);
+                }
+                Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);
+
+                viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent NFC = new Intent(getActivity(),CheckoutOrder.class);
-                        startActivity(NFC);
+                        Intent updateFood = new Intent(getActivity(),MenuDetail.class);
+                        updateFood.putExtra("FoodID", post_key);
+
+                        startActivity(updateFood);
                     }
                 });
 
@@ -137,6 +152,7 @@ public class DrinkContentFragment extends Fragment {
 
         public final TextView menuName;
         public final TextView menuPrice;
+        public final TextView menuStatus;
         public final ImageView menuImage;
         public final Button updateButton;
         public final ImageButton deleteButton;
@@ -148,6 +164,7 @@ public class DrinkContentFragment extends Fragment {
 
             menuName = (TextView) itemView.findViewById(R.id.drink_name);
             menuPrice = (TextView) itemView.findViewById(R.id.drink_price);
+            menuStatus = (TextView) itemView.findViewById(R.id.Status);
             menuImage = (ImageView) itemView.findViewById(R.id.drink_image);
             updateButton = (Button) itemView.findViewById(R.id.order_button);
             deleteButton = (ImageButton) itemView.findViewById(R.id.imageButton2);
