@@ -8,6 +8,10 @@
             android:icon="@mipmap/ic_person_black_24dp"
             android:title="Profile" />
         <item
+            android:id="@+id/nav_order"
+            android:icon="@mipmap/ic_add_shopping_cart_black_24dp"
+            android:title="Order" />
+        <item
             android:id="@+id/Add_Menu"
             android:icon="@mipmap/ic_restaurant_menu_black_24dp"
             android:title="@string/add_new_menu" />

@@ -36,10 +36,9 @@
             android:name=".MenuDetail"
             android:label="Menu Detail"
             android:theme="@style/OtherPages" />
-        <activity
-            android:name=".OrderActivity"
-            android:label="@string/title_activity_order"
-            android:theme="@style/OtherPages"></activity>
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".FoodContent" />
+        <activity android:name=".DrinkContent"></activity>
     </application>
 
 </manifest>

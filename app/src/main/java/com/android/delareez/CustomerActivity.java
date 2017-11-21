@@ -56,6 +56,7 @@ public class CustomerActivity extends AppCompatActivity
         //mDatabase = FirebaseDatabase.getInstance().getReference("Customer").child();
 
 
+
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -129,6 +130,20 @@ public class CustomerActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        for (int menuItemIndex = 0; menuItemIndex < menu.size(); menuItemIndex++) {
+            MenuItem menuItem= menu.getItem(menuItemIndex);
+            if(menuItem.getItemId() == R.id.Add_Menu){
+                menuItem.setVisible(false);
+            }
+            if (menuItem.getItemId() == R.id.nav_slideshow){
+                menuItem.setVisible(false);
+            }
+            if (menuItem.getItemId() == R.id.nav_manage){
+                menuItem.setVisible(false);
+            }
+        }
+
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -231,6 +246,10 @@ public class CustomerActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }
+        else if (id == R.id.nav_order){
+            Intent Order = new Intent(CustomerActivity.this,OrderActivity.class);
+            startActivity(Order);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

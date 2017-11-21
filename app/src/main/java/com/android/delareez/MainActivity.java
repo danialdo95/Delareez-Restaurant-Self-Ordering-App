@@ -137,6 +137,13 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        for (int menuItemIndex = 0; menuItemIndex < menu.size(); menuItemIndex++) {
+            MenuItem menuItem= menu.getItem(menuItemIndex);
+            if(menuItem.getItemId() == R.id.nav_order){
+                menuItem.setVisible(false);
+            }
+        }
         navigationView.setNavigationItemSelectedListener(this);
 
 

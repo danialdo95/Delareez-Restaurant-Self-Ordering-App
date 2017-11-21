@@ -87,7 +87,11 @@
         <item>Available</item>
         <item>Out Of Order</item>
     </string-array>
-    <string name="title_activity_order">Ordering</string>
+    <string name="title_activity_order"></string>
+    <string name="foodname">FoodName</string>
+    <string name="food_name">Food Name</string>
+    <string name="_1_000">1,000</string>
+
 
 </resources>
 
