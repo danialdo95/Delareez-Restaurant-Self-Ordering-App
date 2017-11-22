@@ -91,6 +91,7 @@
     <string name="foodname">FoodName</string>
     <string name="food_name">Food Name</string>
     <string name="_1_000">1,000</string>
+    <string name="add_to_cart">Add to cart</string>
 
 
 </resources>

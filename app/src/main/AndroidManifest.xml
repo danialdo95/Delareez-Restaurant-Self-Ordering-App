@@ -37,8 +37,7 @@
             android:label="Menu Detail"
             android:theme="@style/OtherPages" />
         <activity android:name=".OrderActivity" />
-        <activity android:name=".FoodContent" />
-        <activity android:name=".DrinkContent"></activity>
+
     </application>
 
 </manifest>

@@ -29,27 +29,9 @@ public class OrderContentFragment extends Fragment {
         View myView = inflater.inflate(R.layout.item_checkout, container,false);
 
 
-        Button button = (Button) myView.findViewById(R.id.button2);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View view) {
-                Intent NFC = new Intent(getActivity(),CheckoutOrder.class);
-                startActivity(NFC);
-            }
-        });
 
 
         return myView;
-
-
-
     }
-
-
-
-
 }
 

@@ -7,10 +7,4 @@
     android:padding="20dp">
 
 
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button" />
 </LinearLayout>

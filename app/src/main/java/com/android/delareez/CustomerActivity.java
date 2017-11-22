@@ -108,7 +108,7 @@ public class CustomerActivity extends AppCompatActivity
 
         tabs.getTabAt(0).setIcon(tabIcons[0]);
         tabs.getTabAt(1).setIcon(tabIcons[1]);
-        tabs.getTabAt(2).setIcon(tabIcons[2]);
+
 
 
 
@@ -248,8 +248,7 @@ public class CustomerActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_order){
-            Intent Order = new Intent(CustomerActivity.this,OrderActivity.class);
-            startActivity(Order);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -263,9 +262,8 @@ public class CustomerActivity extends AppCompatActivity
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new FoodContentFragment(),"Food" );
-        adapter.addFragment(new DrinkContentFragment(), "Drink");
-        adapter.addFragment(new OrderContentFragment(), "Order");
+        adapter.addFragment(new FoodContent(),"Food" );
+        adapter.addFragment(new DrinkContent(), "Drink");
         viewPager.setAdapter(adapter);
 
 
