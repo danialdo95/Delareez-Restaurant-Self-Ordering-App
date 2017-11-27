@@ -1,6 +1,5 @@
 package com.android.delareez;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 

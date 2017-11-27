@@ -93,53 +93,6 @@ public class MenuDA {
         }
     }
 
-    //IMPLEMENT FETCH DATA AND FILL ARRAYLIST
-    private void fetchData(DataSnapshot dataSnapshot)
-    {
-        menus.clear();
-
-        for (DataSnapshot ds : dataSnapshot.getChildren())
-        {
-            Menu menu = ds.getValue(Menu.class);
-            menus.add(menu);
-        }
-    }
-
-    //READ THEN RETURN ARRAYLIST
-    public ArrayList<Menu> retrieve() {
-        db.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return menus;
-    }
-
-
-
-
 }
 
 
