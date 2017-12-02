@@ -37,6 +37,7 @@ dependencies {
     })
 
 
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.cepheuen.elegant-number-button:lib:1.0.2'
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.android.support:appcompat-v7:26.+'

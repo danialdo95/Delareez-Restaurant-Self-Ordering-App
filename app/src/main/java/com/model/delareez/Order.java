@@ -13,15 +13,16 @@ public class Order {
     String paymentStatus;
     Double totalPaymentPrice;
     Integer numberOfMenu;
+    String cart;
     String menuID;
     String custID;
     String staffID;
 
-    public Order(){
+    public Order() {
 
     }
 
-    public Order(String orderID, String orderDate, String orderOption, String orderStatus, String paymentStatus, Double totalPaymentPrice, Integer numberOfMenu, String menuID, String custID, String staffID) {
+    public Order(String orderID, String orderDate, String orderOption, String orderStatus, String paymentStatus, Double totalPaymentPrice, Integer numberOfMenu, String cart, String menuID, String custID, String staffID) {
         this.orderID = orderID;
         this.orderDate = orderDate;
         this.orderOption = orderOption;
@@ -29,6 +30,7 @@ public class Order {
         this.paymentStatus = paymentStatus;
         this.totalPaymentPrice = totalPaymentPrice;
         this.numberOfMenu = numberOfMenu;
+        this.cart = cart;
         this.menuID = menuID;
         this.custID = custID;
         this.staffID = staffID;
@@ -90,6 +92,14 @@ public class Order {
         this.numberOfMenu = numberOfMenu;
     }
 
+    public String getCart() {
+        return cart;
+    }
+
+    public void setCart(String cart) {
+        this.cart = cart;
+    }
+
     public String getMenuID() {
         return menuID;
     }
@@ -113,6 +123,4 @@ public class Order {
     public void setStaffID(String staffID) {
         this.staffID = staffID;
     }
-
-
 }

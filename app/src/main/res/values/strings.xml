@@ -87,6 +87,11 @@
         <item>Available</item>
         <item>Out Of Order</item>
     </string-array>
+
+    <string-array name="Order_Option">
+        <item>Dine in</item>
+        <item>Take Away</item>
+    </string-array>
     <string name="title_activity_order"></string>
     <string name="foodname">FoodName</string>
     <string name="food_name">Food Name</string>

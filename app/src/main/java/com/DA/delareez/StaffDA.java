@@ -2,8 +2,8 @@ package com.DA.delareez;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
-import com.model.delareez.Customer;
 import com.model.delareez.Menu;
+import com.model.delareez.Staff;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class StaffDA {
 
 
     //WRITE IF NOT NULL
-    public Boolean CreateCustomer(Customer cust, String UID)
+    public Boolean CreateStaff(Staff cust, String UID)
     {
         if(cust==null)
         {
