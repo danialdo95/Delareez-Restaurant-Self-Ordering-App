@@ -2,15 +2,11 @@ package com.DA.delareez;
 
 
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.model.delareez.Menu;
 
-import java.util.ArrayList;
 
 /**
  * Created by User on 26/9/2017.
@@ -23,7 +19,6 @@ public class MenuDA {
 
     DatabaseReference db;
     Boolean saved = null;
-    ArrayList<Menu> menus = new ArrayList<>();
 
     public MenuDA(DatabaseReference db) {
         this.db = db;

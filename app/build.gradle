@@ -36,7 +36,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.cepheuen.elegant-number-button:lib:1.0.2'
     compile 'com.android.support:recyclerview-v7:26.+'
@@ -49,6 +48,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'

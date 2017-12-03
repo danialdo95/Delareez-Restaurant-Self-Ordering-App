@@ -28,10 +28,11 @@ import com.model.delareez.Order;
 
 
 
-
 /**
  * Provides UI for the view with Cards.
  */
+
+
 public class OrderContentFragment extends Fragment {
 
     private static final String TAG = "OrderContentFragment";
@@ -139,8 +140,6 @@ public class OrderContentFragment extends Fragment {
             email = (TextView) itemView.findViewById(R.id.textView4);
 
         }
-
-
 
     }
 }
