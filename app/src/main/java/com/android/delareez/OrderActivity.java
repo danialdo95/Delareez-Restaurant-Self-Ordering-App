@@ -106,7 +106,7 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-
+                    if (menu.getMenuStatus().equals("Available")){
                         String orderOption = mOrderOption.getSelectedItem().toString();
                         String price = mMenuPrice.getText().toString();
                         String quantitym = qtty.getNumber();
@@ -117,7 +117,7 @@ public class OrderActivity extends AppCompatActivity {
 
                         String id = mDatabase.push().getKey();
 
-                        Order order = new Order(id, null, orderOption, "Not Started", "pending", totalprice, quantity2,"in cart", post_key, user, "BqS8rwyLbRewmJ2MHzYfZV2uoIH2" );
+                        Order order = new Order(id, null, orderOption, "Not Started", "pending", totalprice, quantity2,"in cart", post_key, user, "BqS8rwyLbRewmJ2MHzYfZV2uoIH2",null );
 
 
                         Helper.CreateOrder(order, id);
@@ -125,6 +125,13 @@ public class OrderActivity extends AppCompatActivity {
 
                         Snackbar.make(view, qtty.getNumber() + " " + menu.getMenuName(), Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                    }
+
+                    else{
+                        Snackbar.make(view,  menu.getMenuName() + " is out of order", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+
 
                     }
                 });

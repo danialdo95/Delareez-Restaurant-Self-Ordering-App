@@ -17,12 +17,13 @@ public class Order {
     String menuID;
     String custID;
     String staffID;
+    String tablenum;
 
     public Order() {
 
     }
 
-    public Order(String orderID, String orderDate, String orderOption, String orderStatus, String paymentStatus, Double totalPaymentPrice, Integer numberOfMenu, String cart, String menuID, String custID, String staffID) {
+    public Order(String orderID, String orderDate, String orderOption, String orderStatus, String paymentStatus, Double totalPaymentPrice, Integer numberOfMenu, String cart, String menuID, String custID, String staffID, String tablenum) {
         this.orderID = orderID;
         this.orderDate = orderDate;
         this.orderOption = orderOption;
@@ -34,6 +35,7 @@ public class Order {
         this.menuID = menuID;
         this.custID = custID;
         this.staffID = staffID;
+        this.tablenum = tablenum;
     }
 
     public String getOrderID() {
@@ -122,5 +124,13 @@ public class Order {
 
     public void setStaffID(String staffID) {
         this.staffID = staffID;
+    }
+
+    public String getTablenum() {
+        return tablenum;
+    }
+
+    public void setTablenum(String tablenum) {
+        this.tablenum = tablenum;
     }
 }

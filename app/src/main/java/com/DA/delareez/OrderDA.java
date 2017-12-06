@@ -42,12 +42,12 @@ public class OrderDA {
         return saved;
     }
 
-    public Boolean updateOrder(Order order) {
+    public Boolean updateOrder(Order order, String key) {
         if (order == null) {
             saved = false;
         } else{
             try {
-                db.setValue(order);
+                db.child("Order").child(key).setValue(order);
                 saved = true;
 
             }catch (DatabaseException e) {
