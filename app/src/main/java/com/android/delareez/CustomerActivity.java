@@ -108,6 +108,7 @@ public class CustomerActivity extends AppCompatActivity
 
         tabs.getTabAt(0).setIcon(tabIcons[0]);
         tabs.getTabAt(1).setIcon(tabIcons[1]);
+        tabs.getTabAt(2).setIcon(tabIcons[2]);
 
 
 
@@ -234,16 +235,13 @@ public class CustomerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            startActivity(new Intent(CustomerActivity.this, customerProfile.class));
         } else if (id == R.id.Add_Menu) {
-
-            startActivity(new Intent(CustomerActivity.this, CreateMenu.class));
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            Intent NFC = new Intent(CustomerActivity.this,CheckoutOrder.class);
-            startActivity(NFC);
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -266,6 +264,7 @@ public class CustomerActivity extends AppCompatActivity
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new FoodContent(),"Food" );
         adapter.addFragment(new DrinkContent(), "Drink");
+        adapter.addFragment(new OrderContent(), "Order");
         viewPager.setAdapter(adapter);
 
 

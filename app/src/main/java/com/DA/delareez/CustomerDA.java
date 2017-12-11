@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.model.delareez.Customer;
 
 
+
 /**
  * Created by User on 26/9/2017.
  */
@@ -41,6 +42,22 @@ public class CustomerDA {
             }
         }
 
+        return saved;
+    }
+
+    public Boolean updateCustomer(Customer cust) {
+        if (cust == null) {
+            saved = false;
+        } else{
+            try {
+                db.setValue(cust);
+                saved = true;
+
+            }catch (DatabaseException e) {
+                e.printStackTrace();
+                saved = false;
+            }
+        }
         return saved;
     }
 

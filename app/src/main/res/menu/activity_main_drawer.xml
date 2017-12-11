@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
@@ -9,8 +10,8 @@
             android:title="Profile" />
         <item
             android:id="@+id/nav_order"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="Orders" />
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="Order History" />
         <item
             android:id="@+id/Add_Menu"
             android:icon="@mipmap/ic_restaurant_menu_black_24dp"

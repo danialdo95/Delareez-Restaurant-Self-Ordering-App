@@ -37,8 +37,12 @@
             android:label="Menu Detail"
             android:theme="@style/OtherPages" />
         <activity android:name=".OrderActivity" />
-        <activity android:name=".Cart"
+        <activity
+            android:name=".Cart"
             android:label="Cart"
+            android:theme="@style/OtherPages" />
+        <activity android:name=".customerProfile"
+            android:label="Profile"
             android:theme="@style/OtherPages"></activity>
     </application>
 

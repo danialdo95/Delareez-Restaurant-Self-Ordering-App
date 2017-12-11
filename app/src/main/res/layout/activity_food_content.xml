@@ -4,10 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:background="@color/background"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context="com.android.delareez.FoodContent">
 
+
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/searchBar"
+        style="@style/MaterialSearchBarLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:mt_hint="Search Food"
+        app:mt_maxSuggestionsCount="10"
+        app:mt_speechMode="false" />
 
     <ProgressBar
         android:id="@+id/LoadingFood"
@@ -15,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/food_list2"

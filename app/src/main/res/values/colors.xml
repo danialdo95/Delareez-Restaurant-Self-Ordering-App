@@ -19,6 +19,8 @@
     <color name="btn_logut_bg">#ff6861</color>
 
 
+    <color name="background">#EEEEEE</color>
+
 
     <color name="dark_grey">#424242</color>
     <color name="medium_grey">#9E9E9E</color>
