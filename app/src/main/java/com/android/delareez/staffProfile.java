@@ -12,7 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.DA.delareez.CustomerDA;
+
+import com.DA.delareez.StaffDA;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,23 +23,23 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.model.delareez.Customer;
+import com.model.delareez.Staff;
 
-public class customerProfile extends AppCompatActivity {
+public class staffProfile extends AppCompatActivity {
     private Button btnChangeEmail, btnChangePassword,changeEmail, changePassword;
 
     private EditText newEmail, newPassword;
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
-    private TextView mail, pass;
+    private TextView mail, pass, type;
     private DatabaseReference mDatabase;
-    CustomerDA Helper;
+    StaffDA Helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_profile);
+        setContentView(R.layout.activity_staff_profile);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -48,10 +49,9 @@ public class customerProfile extends AppCompatActivity {
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String custID = user.getUid().toString();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Customer").child(custID);
-        Helper = new CustomerDA(mDatabase);
-
+        String ID = user.getUid().toString();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Staff").child(ID);
+        Helper = new StaffDA(mDatabase);
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -59,7 +59,7 @@ public class customerProfile extends AppCompatActivity {
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
-                    startActivity(new Intent(customerProfile.this, LoginActivity.class));
+                    startActivity(new Intent(staffProfile.this, LoginActivity.class));
                     finish();
                 }
             }
@@ -72,6 +72,7 @@ public class customerProfile extends AppCompatActivity {
         changePassword = (Button) findViewById(R.id.changePass);
         mail = (TextView) findViewById(R.id.mail);
         pass = (TextView) findViewById(R.id.pass);
+        type = (TextView) findViewById(R.id.type);
 
 
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -80,17 +81,17 @@ public class customerProfile extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Customer value = dataSnapshot.getValue(Customer.class);
-                mail.setText(value.getCustEmail());
-                pass.setText(value.getCustPassword());
+                Staff staff = dataSnapshot.getValue(Staff.class);
+                mail.setText(staff.getStaffEmail());
+                pass.setText(staff.getStaffPassword());
+                type.setText(staff.getStaffType());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                startActivity(new Intent(customerProfile.this, staffProfile.class));
+
             }
         });
-
         newEmail.setVisibility(View.GONE);
         newPassword.setVisibility(View.GONE);
         changeEmail.setVisibility(View.GONE);
@@ -125,16 +126,16 @@ public class customerProfile extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(customerProfile.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
-                                        Customer customer = new Customer();
-                                        customer.setCustEmail(newEmail.getText().toString());
-                                        customer.setCustID(custID);
-                                        customer.setCustPassword(pass.getText().toString());
-                                        Helper.updateCustomer(customer);
+                                        Toast.makeText(staffProfile.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
+                                        Staff staff = new Staff();
+                                        staff.setStaffEmail(newEmail.getText().toString());
+                                        staff.setStaffID(ID);
+                                        staff.setStaffPassword(pass.getText().toString());
+                                        Helper.updateStaff(staff);
                                         signOut();
                                         progressBar.setVisibility(View.GONE);
                                     } else {
-                                        Toast.makeText(customerProfile.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(staffProfile.this, "Failed to update email!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
@@ -172,16 +173,16 @@ public class customerProfile extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(customerProfile.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
-                                            Customer customer = new Customer();
-                                            customer.setCustEmail(mail.getText().toString());
-                                            customer.setCustID(custID);
-                                            customer.setCustPassword(newPassword.getText().toString());
-                                            Helper.updateCustomer(customer);
+                                            Toast.makeText(staffProfile.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                            Staff staff = new Staff();
+                                            staff.setStaffEmail(mail.getText().toString());
+                                            staff.setStaffID(ID);
+                                            staff.setStaffPassword(newPassword.getText().toString());
+                                            Helper.updateStaff(staff);
                                             signOut();
                                             progressBar.setVisibility(View.GONE);
                                         } else {
-                                            Toast.makeText(customerProfile.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(staffProfile.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
                                             progressBar.setVisibility(View.GONE);
                                         }
                                     }
@@ -200,11 +201,17 @@ public class customerProfile extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home)
+            startActivity(new Intent(staffProfile.this, MainActivity.class));
             finish();
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+        startActivity(new Intent(staffProfile.this, MainActivity.class));
+    }
 
     //sign out method
     public void signOut() {

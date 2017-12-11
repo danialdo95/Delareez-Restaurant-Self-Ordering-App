@@ -32,8 +32,9 @@
             android:id="@+id/drink_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/card_title"
-            android:layout_below="@+id/card_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/textView8"
+            android:layout_below="@+id/textView8"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="5"
@@ -55,18 +56,17 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/drink_price"
-            android:layout_alignBottom="@+id/drink_price"
+            android:layout_above="@+id/statuschange"
             android:layout_alignStart="@+id/drink_price"
-            android:layout_marginStart="23dp"
+            android:layout_marginStart="16dp"
             android:text="example@gmail.com" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/textView8"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/card_title"
             android:layout_marginEnd="12dp"
             android:text="Status" />
 
@@ -74,9 +74,8 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/card_title"
-            android:layout_alignBottom="@+id/card_title"
-            android:layout_alignEnd="@+id/textView5"
+            android:layout_above="@+id/textView4"
+            android:layout_alignStart="@+id/card_title"
             android:text="Date" />
 
         <Button
@@ -84,8 +83,8 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/textView5"
             android:autoText="false"
             android:text="Change Status"
             android:textColor="?attr/colorPrimary"
@@ -98,6 +97,15 @@
             android:layout_alignTop="@+id/textView2"
             android:layout_toEndOf="@+id/textView2"
             android:text="12" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView9"
+            android:layout_marginStart="17dp"
+            android:layout_toEndOf="@+id/textView9"
+            android:text="Option" />
 
     </RelativeLayout>
 

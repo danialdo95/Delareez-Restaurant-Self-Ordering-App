@@ -6,16 +6,17 @@ package com.model.delareez;
 
 public class Staff {
 
-    String staffID,staffEmail,staffPassword, managingStaffID;
+    String staffID,staffEmail,staffPassword, staffType, managingStaffID;
 
     public Staff(){
 
     }
 
-    public Staff(String staffID, String staffEmail, String staffPassword, String managingStaffID) {
+    public Staff(String staffID, String staffEmail, String staffPassword, String staffType, String managingStaffID) {
         this.staffID = staffID;
         this.staffEmail = staffEmail;
         this.staffPassword = staffPassword;
+        this.staffType = staffType;
         this.managingStaffID = managingStaffID;
     }
 
@@ -41,6 +42,14 @@ public class Staff {
 
     public void setStaffPassword(String staffPassword) {
         this.staffPassword = staffPassword;
+    }
+
+    public String getStaffType() {
+        return staffType;
+    }
+
+    public void setStaffType(String staffType) {
+        this.staffType = staffType;
     }
 
     public String getManagingStaffID() {

@@ -47,6 +47,21 @@
             android:textSize="18sp"
             android:textStyle="italic" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Staff Type:"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manager"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
         <EditText
             android:id="@+id/new_email"
             android:layout_width="match_parent"

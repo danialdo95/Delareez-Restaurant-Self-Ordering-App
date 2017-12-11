@@ -92,6 +92,13 @@
         <item>Dine in</item>
         <item>Take Away</item>
     </string-array>
+
+    <string-array name="Status_Order">
+        <item>Not Started</item>
+        <item>Preparing</item>
+        <item>Ready</item>
+    </string-array>
+
     <string name="title_activity_order"></string>
     <string name="foodname">FoodName</string>
     <string name="food_name">Food Name</string>

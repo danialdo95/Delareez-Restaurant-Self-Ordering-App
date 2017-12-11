@@ -2,6 +2,7 @@ package com.DA.delareez;
 
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
+
 import com.model.delareez.Staff;
 
 
@@ -37,6 +38,22 @@ public class StaffDA {
             }
         }
 
+        return saved;
+    }
+
+    public Boolean updateStaff(Staff staff) {
+        if (staff == null) {
+            saved = false;
+        } else{
+            try {
+                db.setValue(staff);
+                saved = true;
+
+            }catch (DatabaseException e) {
+                e.printStackTrace();
+                saved = false;
+            }
+        }
         return saved;
     }
 

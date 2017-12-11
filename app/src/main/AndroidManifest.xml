@@ -41,8 +41,17 @@
             android:name=".Cart"
             android:label="Cart"
             android:theme="@style/OtherPages" />
-        <activity android:name=".customerProfile"
+        <activity
+            android:name=".customerProfile"
             android:label="Profile"
+            android:theme="@style/OtherPages" />
+        <activity
+            android:name=".staffProfile"
+            android:label="Profile"
+            android:theme="@style/OtherPages" />
+        <activity
+            android:name=".UpdateOrderStatus"
+            android:label="Update Order"
             android:theme="@style/OtherPages"></activity>
     </application>
 

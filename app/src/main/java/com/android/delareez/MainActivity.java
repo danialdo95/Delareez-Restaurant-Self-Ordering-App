@@ -141,6 +141,9 @@ public class MainActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         for (int menuItemIndex = 0; menuItemIndex < menu.size(); menuItemIndex++) {
             MenuItem menuItem= menu.getItem(menuItemIndex);
+            if(menuItem.getItemId() == R.id.nav_camera){
+                menuItem.setVisible(false);
+            }
             if(menuItem.getItemId() == R.id.nav_order){
                 menuItem.setVisible(false);
             }
@@ -232,8 +235,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_profile) {
+            startActivity(new Intent(MainActivity.this, staffProfile.class));
         } else if (id == R.id.Add_Menu) {
 
             startActivity(new Intent(MainActivity.this, CreateMenu.class));

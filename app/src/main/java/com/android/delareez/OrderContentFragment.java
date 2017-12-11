@@ -5,6 +5,8 @@ package com.android.delareez;
  */
 
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.DA.delareez.OrderDA;
@@ -105,6 +109,28 @@ public class OrderContentFragment extends Fragment {
 
                 viewHolder.mQuantity.setText(Integer.toString(model.getNumberOfMenu()));
                 viewHolder.Orderstatus.setText(model.getOrderStatus());
+                if (model.getOrderStatus().equals("Not Started")){
+                    viewHolder.Orderstatus.setTextColor(Color.RED);
+                }
+                else if (model.getOrderStatus().equals("Preparing")){
+                    viewHolder.Orderstatus.setTextColor(Color.BLUE);
+                }
+                else if (model.getOrderStatus().equals("Ready")){
+                    viewHolder.Orderstatus.setTextColor(Color.GREEN);
+                }
+                viewHolder.Date.setText(model.getOrderDate());
+                viewHolder.orderOption.setText(model.getOrderOption());
+                viewHolder.tablenum.setText(model.getTablenum());
+
+                viewHolder.status.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent updateOrder = new Intent(getActivity(),UpdateOrderStatus.class);
+                        updateOrder.putExtra("OrderID", post_key);
+                        startActivity(updateOrder);
+                        Toast.makeText(getContext(), "Change Status", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 progressBar.setVisibility(View.GONE);
             }
@@ -126,6 +152,8 @@ public class OrderContentFragment extends Fragment {
         public final TextView Date;
         public final TextView Orderstatus;
         public final TextView email;
+        public final TextView orderOption;
+        public final Button status;
 
 
 
@@ -138,6 +166,8 @@ public class OrderContentFragment extends Fragment {
             Date = (TextView) itemView.findViewById(R.id.textView8);
             Orderstatus = (TextView) itemView.findViewById(R.id.textView5);
             email = (TextView) itemView.findViewById(R.id.textView4);
+            orderOption = (TextView) itemView.findViewById(R.id.textView15);
+            status = (Button) itemView.findViewById(R.id.statuschange);
 
         }
 

@@ -136,6 +136,9 @@ public class CustomerActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         for (int menuItemIndex = 0; menuItemIndex < menu.size(); menuItemIndex++) {
             MenuItem menuItem= menu.getItem(menuItemIndex);
+            if(menuItem.getItemId() == R.id.nav_profile){
+                menuItem.setVisible(false);
+            }
             if(menuItem.getItemId() == R.id.Add_Menu){
                 menuItem.setVisible(false);
             }
