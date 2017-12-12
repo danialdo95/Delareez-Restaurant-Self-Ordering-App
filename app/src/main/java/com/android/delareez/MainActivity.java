@@ -237,7 +237,17 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             startActivity(new Intent(MainActivity.this, staffProfile.class));
-        } else if (id == R.id.Add_Menu) {
+            finish();
+        } else if (id == R.id.nav_pay) {
+
+            startActivity(new Intent(MainActivity.this, OrderPayment.class));
+
+        }else if (id == R.id.nav_archive) {
+
+            startActivity(new Intent(MainActivity.this, orderArchive.class));
+
+        }
+        else if (id == R.id.Add_Menu) {
 
             startActivity(new Intent(MainActivity.this, CreateMenu.class));
 

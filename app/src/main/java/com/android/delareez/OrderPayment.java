@@ -1,28 +1,20 @@
 package com.android.delareez;
 
-/**
- * Created by User on 10/8/2017.
- */
-
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.DA.delareez.OrderDA;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -34,57 +26,47 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.model.delareez.Order;
 
+public class OrderPayment extends AppCompatActivity {
 
-
-/**
- * Provides UI for the view with Cards.
- */
-
-
-public class OrderContentFragment extends Fragment {
-
-    private static final String TAG = "OrderContentFragment";
+    private static final String TAG = "OrderPayment";
     private RecyclerView mOrderList;
     private DatabaseReference mFirebaseRef;
     private DatabaseReference mDatabaseMenu;
     private DatabaseReference mDatabaseCust;
     private LinearLayoutManager manager;
-    private FirebaseRecyclerAdapter<Order, ViewHolder> firebaseRecyclerAdapter;
-    private ProgressBar progressBar;
+    private FirebaseRecyclerAdapter<Order, OrderPayment.ViewHolder> firebaseRecyclerAdapter;
     OrderDA Helper;
 
 
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View myView = inflater.inflate(R.layout.item_checkout, container,false);
-
-
-        progressBar = (ProgressBar) myView.findViewById(R.id.LoadingOrder);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_payment);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         mDatabaseMenu = FirebaseDatabase.getInstance().getReference();
         mDatabaseCust = FirebaseDatabase.getInstance().getReference();
 
 
-        Query OrderQuery = mFirebaseRef.child("Order").orderByChild("cart").equalTo("placed");
+        Query OrderQuery = mFirebaseRef.child("Order").orderByChild("orderStatus").equalTo("Ready");
         Helper=new OrderDA(mFirebaseRef);
 
 
-        mOrderList = (RecyclerView) myView.findViewById(R.id.order_list);
-        manager = new LinearLayoutManager(this.getContext());
+        mOrderList = (RecyclerView) findViewById(R.id.orderpaylist);
+        manager = new LinearLayoutManager(this);
         mOrderList.setHasFixedSize(true);
-        progressBar.setVisibility(View.VISIBLE);
 
 
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Order, ViewHolder >(Order.class, R.layout.order_customer_card, ViewHolder.class, OrderQuery){
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Order, OrderPayment.ViewHolder>(Order.class, R.layout.paycard, OrderPayment.ViewHolder.class, OrderQuery){
 
             @Override
-            protected void populateViewHolder(ViewHolder viewHolder, Order model, int position) {
+            protected void populateViewHolder(OrderPayment.ViewHolder viewHolder, Order model, int position) {
                 final String post_key = getRef(position).getKey();
                 String menuid = model.getMenuID();
                 String custID = model.getCustID();
@@ -125,59 +107,33 @@ public class OrderContentFragment extends Fragment {
                 viewHolder.Date.setText(model.getOrderDate());
                 viewHolder.orderOption.setText(model.getOrderOption());
                 viewHolder.tablenum.setText(model.getTablenum());
+                viewHolder.price.setText(model.getTotalPaymentPrice().toString());
 
                 viewHolder.status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent updateOrder = new Intent(getActivity(),UpdateOrderStatus.class);
-                        updateOrder.putExtra("OrderID", post_key);
-                        startActivity(updateOrder);
-                        Toast.makeText(getContext(), "Change Status", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
-                viewHolder.delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Confirm Delete");
-
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Are you sure you want delete this Order?");
-
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
-
-                        // Setting Positive "Yes" Button
-                        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int which) {
-
+                        mFirebaseRef.child("Order").child(post_key).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Order order = dataSnapshot.getValue(Order.class);
+                                Helper.SetPaidArchiveOrder(order,post_key);
                                 Helper.deleteOrder(post_key);
+                            }
 
-                                // Write your code here to invoke YES event
-                                Snackbar.make(v, "Order is deleted" , Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
 
-                        // Setting Negative "NO" Button
-                        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to invoke NO event
-                                dialog.cancel();
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
-
-
+                        Snackbar.make(v, "Paid and Archive" , Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
                     }
                 });
 
-                progressBar.setVisibility(View.GONE);
+
+
             }
         };
 
@@ -186,7 +142,7 @@ public class OrderContentFragment extends Fragment {
 
 
 
-        return myView;
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -199,7 +155,7 @@ public class OrderContentFragment extends Fragment {
         public final TextView email;
         public final TextView orderOption;
         public final Button status;
-        public final ImageButton delete;
+        public final TextView price;
 
 
 
@@ -214,10 +170,24 @@ public class OrderContentFragment extends Fragment {
             email = (TextView) itemView.findViewById(R.id.textView4);
             orderOption = (TextView) itemView.findViewById(R.id.textView15);
             status = (Button) itemView.findViewById(R.id.statuschange);
-            delete = (ImageButton) itemView.findViewById(R.id.deleteOrder);
+            price = (TextView) itemView.findViewById(R.id.textView38);
 
         }
 
     }
-}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            startActivity(new Intent(OrderPayment.this, MainActivity.class));
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        startActivity(new Intent(OrderPayment.this, MainActivity.class));
+        finish();
+
+    }
+}

@@ -69,4 +69,28 @@ public class OrderDA {
         }
     }
 
+    public Boolean SetPaidArchiveOrder(Order order, String UID)
+    {
+        if(order==null)
+        {
+            saved=false;
+        }else
+        {
+            try
+            {
+                db.child("OrderArchive").child(UID).setValue(order);
+                db.child("OrderArchive").child(UID).child("paymentStatus").setValue("paid");
+                saved=true;
+
+            }catch (DatabaseException e)
+            {
+                e.printStackTrace();
+                saved=false;
+            }
+        }
+
+        return saved;
+    }
+
+
 }

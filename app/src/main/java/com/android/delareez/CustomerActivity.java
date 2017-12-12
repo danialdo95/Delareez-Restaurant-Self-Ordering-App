@@ -139,6 +139,12 @@ public class CustomerActivity extends AppCompatActivity
             if(menuItem.getItemId() == R.id.nav_profile){
                 menuItem.setVisible(false);
             }
+            if(menuItem.getItemId() == R.id.nav_pay){
+                menuItem.setVisible(false);
+            }
+            if(menuItem.getItemId() == R.id.nav_archive){
+                menuItem.setVisible(false);
+            }
             if(menuItem.getItemId() == R.id.Add_Menu){
                 menuItem.setVisible(false);
             }
@@ -239,8 +245,8 @@ public class CustomerActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             startActivity(new Intent(CustomerActivity.this, customerProfile.class));
-        } else if (id == R.id.Add_Menu) {
-
+        } else if (id == R.id.nav_order) {
+            startActivity(new Intent(CustomerActivity.this, orderHistory.class));
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

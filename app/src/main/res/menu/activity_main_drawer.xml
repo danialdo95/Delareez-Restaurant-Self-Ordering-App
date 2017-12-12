@@ -13,9 +13,17 @@
             android:icon="@mipmap/ic_person_black_24dp"
             android:title="Profile" />
         <item
+            android:id="@+id/nav_pay"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Payment Status" />
+        <item
             android:id="@+id/nav_order"
             android:icon="@drawable/ic_history_black_24dp"
             android:title="Order History" />
+        <item
+            android:id="@+id/nav_archive"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="Order Archived" />
         <item
             android:id="@+id/Add_Menu"
             android:icon="@mipmap/ic_restaurant_menu_black_24dp"

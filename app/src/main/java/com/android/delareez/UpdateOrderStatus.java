@@ -1,5 +1,6 @@
 package com.android.delareez;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -73,43 +74,46 @@ public class UpdateOrderStatus extends AppCompatActivity {
          @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
              Order value = dataSnapshot.getValue(Order.class);
-             String menuid = value.getMenuID();
-             String custID = value.getCustID();
+             if (dataSnapshot.exists()){
+                 String menuid = value.getMenuID();
+                 String custID = value.getCustID();
 
-             OrderID.setText(value.getOrderID());
-             Date.setText(value.getOrderDate());
-             Quantity.setText(value.getNumberOfMenu().toString());
-             tablenum.setText(value.getTablenum());
-             OrderOption.setText(value.getOrderOption());
-             payment.setText(value.getPaymentStatus());
-             staffID.setText(value.getStaffID());
-             mcustID.setText(custID);
-             mmenuID.setText(menuid);
-             price.setText(value.getTotalPaymentPrice().toString());
+                 OrderID.setText(value.getOrderID());
+                 Date.setText(value.getOrderDate());
+                 Quantity.setText(value.getNumberOfMenu().toString());
+                 tablenum.setText(value.getTablenum());
+                 OrderOption.setText(value.getOrderOption());
+                 payment.setText(value.getPaymentStatus());
+                 staffID.setText(value.getStaffID());
+                 mcustID.setText(custID);
+                 mmenuID.setText(menuid);
+                 price.setText(value.getTotalPaymentPrice().toString());
 
-             mDatabaseMenu.child("Menu").child(menuid).child("menuName").addListenerForSingleValueEvent(new ValueEventListener() {
-                 public void onDataChange(DataSnapshot dataSnapshot) {
-                     String menuname = dataSnapshot.getValue(String.class);
-                     MenuName.setText(menuname);
+                 mDatabaseMenu.child("Menu").child(menuid).child("menuName").addListenerForSingleValueEvent(new ValueEventListener() {
+                     public void onDataChange(DataSnapshot dataSnapshot) {
+                         String menuname = dataSnapshot.getValue(String.class);
+                         MenuName.setText(menuname);
 
-                 }
+                     }
 
-                 public void onCancelled(DatabaseError firebaseError) { }
-             });
+                     public void onCancelled(DatabaseError firebaseError) { }
+                 });
 
-             mDatabaseCust.child("Customer").child(custID).child("custEmail").addListenerForSingleValueEvent(new ValueEventListener() {
-                 @Override
-                 public void onDataChange(DataSnapshot dataSnapshot) {
-                     String cust = dataSnapshot.getValue(String.class);
-                     custEmail.setText(cust);
+                 mDatabaseCust.child("Customer").child(custID).child("custEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(DataSnapshot dataSnapshot) {
+                         String cust = dataSnapshot.getValue(String.class);
+                         custEmail.setText(cust);
 
-                 }
+                     }
 
-                 @Override
-                 public void onCancelled(DatabaseError databaseError) {
+                     @Override
+                     public void onCancelled(DatabaseError databaseError) {
 
-                 }
-             });
+                     }
+                 });
+             }
+
          }
 
          @Override
@@ -150,5 +154,14 @@ public class UpdateOrderStatus extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home)
             finish();
         return  super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+        startActivity(new Intent(UpdateOrderStatus.this, MainActivity.class));
+
+
     }
 }
