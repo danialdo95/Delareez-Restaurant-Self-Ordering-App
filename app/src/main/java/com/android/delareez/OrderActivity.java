@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.DA.delareez.OrderDA;
@@ -122,9 +123,8 @@ public class OrderActivity extends AppCompatActivity {
 
                         Helper.CreateOrder(order, id);
 
-
-                        Snackbar.make(view, qtty.getNumber() + " " + menu.getMenuName() + " is added to cart", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        Toast.makeText(getApplicationContext(), qtty.getNumber() + " " + menu.getMenuName() + " is added to cart" , Toast.LENGTH_SHORT).show();
+                        finish();
                     }
 
                     else{

@@ -30,6 +30,7 @@ import com.DA.delareez.OrderDA;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -102,7 +103,7 @@ public class Cart extends AppCompatActivity {
         mTvMessage = findViewById(R.id.textView18);
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Order, Cart.ViewHolder>(Order.class, R.layout.card_order, Cart.ViewHolder.class, OrderQuery) {
-            Double sum = 0.0;
+
 
             @Override
             protected void populateViewHolder(ViewHolder viewHolder, Order model, int position) {
@@ -129,8 +130,6 @@ public class Cart extends AppCompatActivity {
 
 
 
-                    sum = sum + model.getTotalPaymentPrice();
-                    total.setText(sum.toString());
 
 
 
@@ -195,6 +194,41 @@ public class Cart extends AppCompatActivity {
 
         mOrderList.setAdapter(firebaseRecyclerAdapter);
         mOrderList.setLayoutManager(manager);
+
+
+        mFirebaseRef.child("Order").orderByChild("custID").equalTo(id).addChildEventListener(new ChildEventListener() {
+            Double sum = 0.0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Order order = dataSnapshot.getValue(Order.class);
+                if (order.getCart().equals("in cart")){
+                    sum = sum + order.getTotalPaymentPrice();
+                    total.setText(sum.toString());
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Order order = dataSnapshot.getValue(Order.class);
+                    sum = sum - order.getTotalPaymentPrice();
+                    total.setText(sum.toString());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
