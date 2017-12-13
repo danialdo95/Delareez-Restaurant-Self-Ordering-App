@@ -82,9 +82,6 @@ public class CustomerActivity extends AppCompatActivity
                                 startActivity(intent);
                                 finish();
                             }
-                            else{
-                                Toast.makeText(getApplicationContext(), "Hello Customer", Toast.LENGTH_SHORT).show();
-                            }
                         }
 
                         @Override

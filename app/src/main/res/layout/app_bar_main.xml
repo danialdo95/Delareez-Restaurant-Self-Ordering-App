@@ -17,6 +17,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:visibility="visible"
-        app:srcCompat="@mipmap/ic_shopping_cart_white_24dp" />
+        app:srcCompat="@mipmap/ic_add_shopping_cart_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

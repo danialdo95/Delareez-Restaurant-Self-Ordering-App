@@ -182,12 +182,4 @@ public class OrderPayment extends AppCompatActivity {
             finish();
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        startActivity(new Intent(OrderPayment.this, MainActivity.class));
-        finish();
-
-    }
 }

@@ -83,9 +83,6 @@ public class MainActivity extends AppCompatActivity
                                 startActivity(intent);
                                 finish();
                             }
-                            else{
-                                Toast.makeText(getApplicationContext(), "Hello Staff", Toast.LENGTH_SHORT).show();
-                            }
                         }
 
                         @Override

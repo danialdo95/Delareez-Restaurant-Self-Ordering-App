@@ -77,7 +77,6 @@ public class OrderContentFragment extends Fragment {
         mOrderList = (RecyclerView) myView.findViewById(R.id.order_list);
         manager = new LinearLayoutManager(this.getContext());
         mOrderList.setHasFixedSize(true);
-        progressBar.setVisibility(View.VISIBLE);
 
 
 
@@ -177,7 +176,7 @@ public class OrderContentFragment extends Fragment {
                     }
                 });
 
-                progressBar.setVisibility(View.GONE);
+
             }
         };
 

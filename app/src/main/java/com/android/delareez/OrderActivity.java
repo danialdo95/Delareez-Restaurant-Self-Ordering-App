@@ -123,7 +123,7 @@ public class OrderActivity extends AppCompatActivity {
                         Helper.CreateOrder(order, id);
 
 
-                        Snackbar.make(view, qtty.getNumber() + " " + menu.getMenuName(), Snackbar.LENGTH_LONG)
+                        Snackbar.make(view, qtty.getNumber() + " " + menu.getMenuName() + " is added to cart", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
 
