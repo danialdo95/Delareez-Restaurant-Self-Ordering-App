@@ -100,7 +100,7 @@ public class Cart extends AppCompatActivity {
 
         initNFC();
 
-        mTvMessage = findViewById(R.id.textView18);
+        mTvMessage = (TextView) findViewById(R.id.textView18);
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Order, Cart.ViewHolder>(Order.class, R.layout.card_order, Cart.ViewHolder.class, OrderQuery) {
 
