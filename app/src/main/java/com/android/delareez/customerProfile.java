@@ -82,7 +82,7 @@ public class customerProfile extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Customer value = dataSnapshot.getValue(Customer.class);
                 mail.setText(value.getCustEmail());
-                pass.setText(value.getCustPassword());
+                //pass.setText(value.getCustPassword());
             }
 
             @Override

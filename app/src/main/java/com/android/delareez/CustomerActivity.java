@@ -251,7 +251,7 @@ public class CustomerActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            startActivity(new Intent(CustomerActivity.this, AboutActivity.class));
         }
         else if (id == R.id.nav_order){
 

@@ -83,7 +83,7 @@ public class staffProfile extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Staff staff = dataSnapshot.getValue(Staff.class);
                 mail.setText(staff.getStaffEmail());
-                pass.setText(staff.getStaffPassword());
+               // pass.setText(staff.getStaffPassword());
                 type.setText(staff.getStaffType());
             }
 
