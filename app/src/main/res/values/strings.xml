@@ -99,6 +99,12 @@
         <item>Ready</item>
     </string-array>
 
+    <string-array name="Staff_Option">
+        <item>Chef</item>
+        <item>Waiter</item>
+    </string-array>
+
+
     <string name="title_activity_order"></string>
     <string name="foodname">FoodName</string>
     <string name="food_name">Food Name</string>

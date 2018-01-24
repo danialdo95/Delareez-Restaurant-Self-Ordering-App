@@ -249,6 +249,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, CreateMenu.class));
 
         } else if (id == R.id.nav_slideshow) {
+            startActivity(new Intent(MainActivity.this, AddStaff.class));
 
         } else if (id == R.id.nav_manage) {
             Intent NFC = new Intent(MainActivity.this,CheckoutOrder.class);

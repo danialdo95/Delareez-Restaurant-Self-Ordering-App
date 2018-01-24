@@ -79,6 +79,8 @@ public class MenuDetail extends AppCompatActivity {
 
         mProgress = new ProgressDialog(this);
 
+
+
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -103,7 +105,7 @@ public class MenuDetail extends AppCompatActivity {
                 mMenuPrice.setText(menu.getMenuPrice().toString());
                 mImageUri = Uri.parse(menu.getMenuImage());
                 Picasso.with(getApplicationContext()).load(mImageUri).into(mSelectImage);
-
+                mMenuStatus.setSelection(1);
             }
 
             @Override

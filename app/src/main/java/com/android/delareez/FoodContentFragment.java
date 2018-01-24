@@ -23,14 +23,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.DA.delareez.MenuDA;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.model.delareez.Menu;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.model.delareez.Staff;
 import com.squareup.picasso.Picasso;
 
 
@@ -41,10 +48,11 @@ public class FoodContentFragment extends Fragment {
 
             private static final String TAG = "FoodContentFragment";
             private RecyclerView mFoodList;
-            private DatabaseReference mFirebaseRef;
+            private DatabaseReference mFirebaseRef, mDatabase;
             private LinearLayoutManager manager;
             private FirebaseRecyclerAdapter<Menu, ViewHolder> firebaseRecyclerAdapter;
             private ProgressBar progressBar;
+            private FirebaseAuth auth;
             MenuDA Helper;
 
 
@@ -53,11 +61,18 @@ public class FoodContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.item_ordered, container,false);
+        auth = FirebaseAuth.getInstance();
+        //mDatabase = FirebaseDatabase.getInstance().getReference("Customer").child();
 
+
+
+        //get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         progressBar = (ProgressBar) myView.findViewById(R.id.LoadingFood);
 
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         Query FoodQuery = mFirebaseRef.child("Menu").orderByChild("menuType").equalTo("Food");
         Helper=new MenuDA(mFirebaseRef);
 
@@ -100,39 +115,57 @@ public class FoodContentFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                        mFirebaseRef.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Staff staff = dataSnapshot.getValue(Staff.class);
+                                if (staff.getStaffType().equals("Manager") ){
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Confirm Delete");
+                                    // Setting Dialog Title
+                                    alertDialog.setTitle("Confirm Delete");
 
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Are you sure you want delete this?");
+                                    // Setting Dialog Message
+                                    alertDialog.setMessage("Are you sure you want delete this?");
 
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
+                                    // Setting Icon to Dialog
+                                    alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
 
-                        // Setting Positive "Yes" Button
-                        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int which) {
+                                    // Setting Positive "Yes" Button
+                                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int which) {
 
-                                Helper.deleteMenu(post_key);
+                                            Helper.deleteMenu(post_key);
 
-                                // Write your code here to invoke YES event
-                                Snackbar.make(view, model.getMenuName() + " is deleted" , Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                            // Write your code here to invoke YES event
+                                            Snackbar.make(view, model.getMenuName() + " is deleted" , Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                        }
+                                    });
+
+                                    // Setting Negative "NO" Button
+                                    alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Write your code here to invoke NO event
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                                    // Showing Alert Message
+                                    alertDialog.show();
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), "You Are not the manager!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
-
-                        // Setting Negative "NO" Button
-                        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to invoke NO event
-                                dialog.cancel();
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
 
                     }
                 });

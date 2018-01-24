@@ -60,11 +60,14 @@
         <activity
             android:name=".orderArchive"
             android:label="Order Archive"
-            android:theme="@style/OtherPages"/>
+            android:theme="@style/OtherPages" />
         <activity
             android:name=".orderHistory"
             android:label="Order History"
-            android:theme="@style/OtherPages"></activity>
+            android:theme="@style/OtherPages" />
+        <activity android:name=".AddStaff"
+            android:label="Add New Staff"
+            android:theme="@style/OtherPages"/>
     </application>
 
 </manifest>
