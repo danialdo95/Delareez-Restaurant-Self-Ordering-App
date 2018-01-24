@@ -20,14 +20,18 @@ import android.widget.Toast;
 import com.DA.delareez.MenuDA;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.model.delareez.Menu;
-
-
+import com.model.delareez.Staff;
 
 
 public class CreateMenu extends AppCompatActivity {
@@ -63,7 +67,7 @@ public class CreateMenu extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Helper=new MenuDA(mDatabase);
-
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mMenuName =(EditText) findViewById(R.id.MenuName);
         mMenuPrice = (EditText) findViewById(R.id.Price);
         mMenuType = (Spinner) findViewById(R.id.spinner3);
@@ -88,8 +92,24 @@ public class CreateMenu extends AppCompatActivity {
         mAddMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mDatabase.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Staff staff = dataSnapshot.getValue(Staff.class);
+                        if (staff.getStaffType().equals("Manager")) {
+                            AddMenu();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "Only manager can create new menu", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                AddMenu();
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
             }
 
