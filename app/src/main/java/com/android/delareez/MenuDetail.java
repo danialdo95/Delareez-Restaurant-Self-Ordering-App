@@ -105,7 +105,21 @@ public class MenuDetail extends AppCompatActivity {
                 mMenuPrice.setText(menu.getMenuPrice().toString());
                 mImageUri = Uri.parse(menu.getMenuImage());
                 Picasso.with(getApplicationContext()).load(mImageUri).into(mSelectImage);
-                mMenuStatus.setSelection(1);
+                if (menu.getMenuType().equals("Food")){
+                    mMenuType.setSelection(0);
+                }
+                else if (menu.getMenuType().equals("Drink")){
+                    mMenuType.setSelection(1);
+                }
+
+
+                if (menu.getMenuStatus().equals("Available")){
+                    mMenuStatus.setSelection(0);
+                }
+
+                else if (menu.getMenuStatus().equals("Out Of Order")){
+                    mMenuStatus.setSelection(1);
+                }
             }
 
             @Override

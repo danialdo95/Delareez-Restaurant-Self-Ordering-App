@@ -112,6 +112,8 @@ public class orderArchive extends AppCompatActivity {
 
         mOrderList.setAdapter(firebaseRecyclerAdapter);
         mOrderList.setLayoutManager(manager);
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

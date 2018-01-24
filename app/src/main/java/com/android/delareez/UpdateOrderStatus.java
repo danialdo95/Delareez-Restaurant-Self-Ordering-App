@@ -89,6 +89,16 @@ public class UpdateOrderStatus extends AppCompatActivity {
                  mmenuID.setText(menuid);
                  price.setText(value.getTotalPaymentPrice().toString());
 
+                 if (value.getOrderStatus().equals("Not Started")){
+                     status.setSelection(0);
+                 }
+                 else if (value.getOrderStatus().equals("Preparing")){
+                     status.setSelection(1);
+                 }
+                 else  if (value.getOrderStatus().equals("Ready")){
+                     status.setSelection(2);
+                 }
+
                  mDatabaseMenu.child("Menu").child(menuid).child("menuName").addListenerForSingleValueEvent(new ValueEventListener() {
                      public void onDataChange(DataSnapshot dataSnapshot) {
                          String menuname = dataSnapshot.getValue(String.class);

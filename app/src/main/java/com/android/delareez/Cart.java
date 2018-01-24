@@ -148,32 +148,63 @@ public class Cart extends AppCompatActivity {
                 viewHolder.checkout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                      String table = String.valueOf(mTvMessage.getText());
-                    if(table.equals("?")) {
-                        Toast.makeText(getApplicationContext(),"Please Tag your phone to the NFC tag", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Date curDate = new Date();
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-                        String DateToStr = format.format(curDate);
+                       if (viewHolder.option.getText().toString().equals("Dine in")){
+                           String table = String.valueOf(mTvMessage.getText());
+                           if(table.equals("?") || table.equals("TA")) {
+                               Toast.makeText(getApplicationContext(),"Please Tag your phone to the NFC tag on the table for dine in and for take away at the take away table", Toast.LENGTH_SHORT).show();
+                           }
+                           else {
+                               Date curDate = new Date();
+                               SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+                               String DateToStr = format.format(curDate);
 
-                        Order order = new Order();
-                        order.setOrderID(post_key);
-                        order.setOrderDate(DateToStr);
-                        order.setOrderOption(model.getOrderOption());
-                        order.setOrderStatus(model.getOrderStatus());
-                        order.setPaymentStatus(model.getPaymentStatus());
-                        order.setTotalPaymentPrice(model.getTotalPaymentPrice());
-                        order.setNumberOfMenu(model.getNumberOfMenu());
-                        order.setCart("placed");
-                        order.setMenuID(model.getMenuID());
-                        order.setCustID(model.getCustID());
-                        order.setStaffID(model.getStaffID());
-                        order.setTablenum(String.valueOf(mTvMessage.getText()));
+                               Order order = new Order();
+                               order.setOrderID(post_key);
+                               order.setOrderDate(DateToStr);
+                               order.setOrderOption(model.getOrderOption());
+                               order.setOrderStatus(model.getOrderStatus());
+                               order.setPaymentStatus(model.getPaymentStatus());
+                               order.setTotalPaymentPrice(model.getTotalPaymentPrice());
+                               order.setNumberOfMenu(model.getNumberOfMenu());
+                               order.setCart("placed");
+                               order.setMenuID(model.getMenuID());
+                               order.setCustID(model.getCustID());
+                               order.setStaffID(model.getStaffID());
+                               order.setTablenum(String.valueOf(mTvMessage.getText()));
 
 
-                        Helper.updateOrder(order, post_key);
-                    }
+                               Helper.updateOrder(order, post_key);
+                           }
+                       }
+                       else if (viewHolder.option.getText().toString().equals("Take Away")){
+                           String table = String.valueOf(mTvMessage.getText());
+                           if(!"TA".equals(table)) {
+                               Toast.makeText(getApplicationContext(),"Please Tag your phone to the NFC tag on the table for dine in and for take away at the take away table", Toast.LENGTH_SHORT).show();
+                           }
+                           else {
+                               Date curDate = new Date();
+                               SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+                               String DateToStr = format.format(curDate);
+
+                               Order order = new Order();
+                               order.setOrderID(post_key);
+                               order.setOrderDate(DateToStr);
+                               order.setOrderOption(model.getOrderOption());
+                               order.setOrderStatus(model.getOrderStatus());
+                               order.setPaymentStatus(model.getPaymentStatus());
+                               order.setTotalPaymentPrice(model.getTotalPaymentPrice());
+                               order.setNumberOfMenu(model.getNumberOfMenu());
+                               order.setCart("placed");
+                               order.setMenuID(model.getMenuID());
+                               order.setCustID(model.getCustID());
+                               order.setStaffID(model.getStaffID());
+                               order.setTablenum(String.valueOf(mTvMessage.getText()));
+
+
+                               Helper.updateOrder(order, post_key);
+                           }
+                       }
+
 
 
                     }

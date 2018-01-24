@@ -21,14 +21,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.DA.delareez.MenuDA;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.model.delareez.Menu;
+import com.model.delareez.Staff;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -54,7 +61,7 @@ public class DrinkContentFragment extends Fragment {
 
 
         progressBar = (ProgressBar) myView.findViewById(R.id.LoadingDrink);
-
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         Query DrinkQuery = mFirebaseRef.child("Menu").orderByChild("menuType").equalTo("Drink");
         Helper=new MenuDA(mFirebaseRef);
@@ -86,10 +93,29 @@ public class DrinkContentFragment extends Fragment {
                 viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent updateFood = new Intent(getActivity(),MenuDetail.class);
-                        updateFood.putExtra("FoodID", post_key);
 
-                        startActivity(updateFood);
+                        mFirebaseRef.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Staff staff = dataSnapshot.getValue(Staff.class);
+                                if (staff.getStaffType().equals("Manager") || staff.getStaffType().equals("Chef")) {
+
+                                    Intent updateFood = new Intent(getActivity(),MenuDetail.class);
+                                    updateFood.putExtra("FoodID", post_key);
+
+                                    startActivity(updateFood);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), "Only Manager and Chef can edit Menu", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 });
 
@@ -99,39 +125,58 @@ public class DrinkContentFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                        mFirebaseRef.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Staff staff = dataSnapshot.getValue(Staff.class);
+                                if (staff.getStaffType().equals("Manager") ) {
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Confirm Delete");
+                                    // Setting Dialog Title
+                                    alertDialog.setTitle("Confirm Delete");
 
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Are you sure you want delete this?");
+                                    // Setting Dialog Message
+                                    alertDialog.setMessage("Are you sure you want delete this?");
 
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
+                                    // Setting Icon to Dialog
+                                    alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
 
-                        // Setting Positive "Yes" Button
-                        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int which) {
+                                    // Setting Positive "Yes" Button
+                                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int which) {
 
-                                Helper.deleteMenu(getRef(position).getKey());
+                                            Helper.deleteMenu(getRef(position).getKey());
 
-                                // Write your code here to invoke YES event
-                                Snackbar.make(view, model.getMenuName() + " is deleted" , Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                            // Write your code here to invoke YES event
+                                            Snackbar.make(view, model.getMenuName() + " is deleted" , Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                        }
+                                    });
+
+                                    // Setting Negative "NO" Button
+                                    alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Write your code here to invoke NO event
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                                    // Showing Alert Message
+                                    alertDialog.show();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "Only the Manager can delete Menu", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
 
-                        // Setting Negative "NO" Button
-                        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to invoke NO event
-                                dialog.cancel();
-                            }
-                        });
 
-                        // Showing Alert Message
-                        alertDialog.show();
+
 
                     }
                 });

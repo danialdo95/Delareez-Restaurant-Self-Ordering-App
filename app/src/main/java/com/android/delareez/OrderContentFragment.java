@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import com.DA.delareez.OrderDA;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.model.delareez.Order;
-
+import com.model.delareez.Staff;
 
 
 /**
@@ -68,7 +70,7 @@ public class OrderContentFragment extends Fragment {
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         mDatabaseMenu = FirebaseDatabase.getInstance().getReference();
         mDatabaseCust = FirebaseDatabase.getInstance().getReference();
-
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         Query OrderQuery = mFirebaseRef.child("Order").orderByChild("cart").equalTo("placed");
         Helper=new OrderDA(mFirebaseRef);
@@ -128,49 +130,86 @@ public class OrderContentFragment extends Fragment {
                 viewHolder.status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent updateOrder = new Intent(getActivity(),UpdateOrderStatus.class);
-                        updateOrder.putExtra("OrderID", post_key);
-                        startActivity(updateOrder);
-                        Toast.makeText(getContext(), "Change Status", Toast.LENGTH_SHORT).show();
+                        mFirebaseRef.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Staff staff = dataSnapshot.getValue(Staff.class);
+                                if(staff.getStaffType().equals("Manager") || staff.getStaffType().equals("Chef")) {
+                                    Intent updateOrder = new Intent(getActivity(),UpdateOrderStatus.class);
+                                    updateOrder.putExtra("OrderID", post_key);
+                                    startActivity(updateOrder);
+                                    Toast.makeText(getContext(), "Change Status", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "Only the Manager and Chef can change Order status", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
                     }
                 });
 
                 viewHolder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                        mFirebaseRef.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Staff staff = dataSnapshot.getValue(Staff.class);
+                                if(staff.getStaffType().equals("Manager") || staff.getStaffType().equals("Chef")){
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-                        // Setting Dialog Title
-                        alertDialog.setTitle("Confirm Delete");
+                                    // Setting Dialog Title
+                                    alertDialog.setTitle("Confirm Delete");
 
-                        // Setting Dialog Message
-                        alertDialog.setMessage("Are you sure you want delete this Order?");
+                                    // Setting Dialog Message
+                                    alertDialog.setMessage("Are you sure you want delete this Order?");
 
-                        // Setting Icon to Dialog
-                        alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
+                                    // Setting Icon to Dialog
+                                    alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
 
-                        // Setting Positive "Yes" Button
-                        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int which) {
+                                    // Setting Positive "Yes" Button
+                                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int which) {
 
-                                Helper.deleteOrder(post_key);
+                                            Helper.deleteOrder(post_key);
 
-                                // Write your code here to invoke YES event
-                                Snackbar.make(v, "Order is deleted" , Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                            // Write your code here to invoke YES event
+                                            Snackbar.make(v, "Order is deleted" , Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                        }
+                                    });
+
+                                    // Setting Negative "NO" Button
+                                    alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Write your code here to invoke NO event
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                                    // Showing Alert Message
+                                    alertDialog.show();
+
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "Only the Manager and Chef can delete Order", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
 
-                        // Setting Negative "NO" Button
-                        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to invoke NO event
-                                dialog.cancel();
-                            }
-                        });
-
-                        // Showing Alert Message
-                        alertDialog.show();
 
 
                     }

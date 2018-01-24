@@ -99,13 +99,39 @@ public class FoodContentFragment extends Fragment {
                     viewHolder.menuStatus.setTextColor(Color.RED);
                 }
                 Picasso.with(viewHolder.menuImage.getContext()).load(model.getMenuImage()).into(viewHolder.menuImage);
+
+
                 viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent updateFood = new Intent(getActivity(),MenuDetail.class);
-                        updateFood.putExtra("FoodID", post_key);
 
-                        startActivity(updateFood);
+                        mFirebaseRef.child("Staff").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Staff staff = dataSnapshot.getValue(Staff.class);
+                                if (staff.getStaffType().equals("Manager") || staff.getStaffType().equals("Chef")) {
+
+                                    Intent updateFood = new Intent(getActivity(),MenuDetail.class);
+                                    updateFood.putExtra("FoodID", post_key);
+
+                                    startActivity(updateFood);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), "Only Manager and Chef can edit Menu", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
                     }
                 });
 
@@ -157,7 +183,7 @@ public class FoodContentFragment extends Fragment {
                                 }
                                 else
                                 {
-                                    Toast.makeText(getContext(), "You Are not the manager!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Only the Manager can delete Menu", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
